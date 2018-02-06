@@ -2,7 +2,7 @@
 from os.path import join
 
 # project imports
-from common import *
+from .common import *
 
 
 # ##### DEBUG CONFIGURATION ###############################
