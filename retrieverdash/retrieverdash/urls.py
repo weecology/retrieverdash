@@ -12,4 +12,5 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls', namespace='blog')),
 
     url(r'^admin/', admin.site.urls),
+    url(r'^dashboard/', include('core.urls')),
 ]
