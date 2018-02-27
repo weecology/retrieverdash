@@ -1,46 +1,36 @@
-django-project-skeleton
-=======================
+Retriever Status Dashboard
+==========================
 
-**django-project-skeleton** is my skeleton for Django projects. It provides a
-directory structure for Django projects during development and deployment.
+**Retriever Status Dashboard** provides details and status info.... 
+
 
 
 Meta
 ----
 
 Author:
-    Mischback
+    Ethan White
 
 Contributors:
-    `agirardeaudale <https://github.com/agirardeuadale>`_,
-    `jmrbcu <https://github.com/jmrbcu>`_
+    `Ethan White <https://github.com/ethanwhite>`_,
+    `Henry Senyondo <https://github.com/henrykironde>`_,
+    `Andrew Zhang <https://github.com/zhangcandrew>`_,
+    `Apoorva Pandey <https://github.com/apoorvaeternity>`_
 
 Status:
     maintained, in development
 
 Version:
-    1.2
+    0.0
 
 Django Version:
     1.11
 
 
 
-Usage
------
 
-To use this repository just use the ``template`` option of `django-admin
-<https://docs.djangoproject.com/en/1.11/ref/django-admin/#startproject>`_::
+Retriever Home
+--------------
 
-    $ django-admin startproject --template=https://github.com/Mischback/django-project-skeleton/archive/development.zip [projectname]
-
-If you wish to automagically fill the ``apache2_vhost.sample`` the command is::
-
-    $ django-admin startproject --template=https://github.com/Mischback/django-project-skeleton/archive/development.zip --name apache2_vhost.sample [projectname]
-
-
-Documentation
--------------
-
-You can see the documentation over at **Read the Docs**: `django-project-skeleton
-<http://django-project-skeleton.readthedocs.org/en/latest/>`_
+You can see the documentation for the Data Retriever <http://www.data-retriever.org/>`_ at **Read the Docs**: `Data Retriever Docs
+<https://retriever.readthedocs.io/en/latest/>`_
