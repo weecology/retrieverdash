@@ -24,7 +24,7 @@ services:
   - postgresql
 
 install:
-  - pip install retriever
+  - pip install -r retrieverdash/requirements.txt
 script:
   - retriever ls
 before_script:

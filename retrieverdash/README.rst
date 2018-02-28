@@ -1,7 +1,7 @@
 Retriever Status Dashboard
 ==========================
 
-**Retriever Status Dashboard** provides details and status info.... 
+**Retriever Status Dashboard** provides details and status info of datasets available through retriever. 
 
 
 
