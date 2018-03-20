@@ -1,0 +1,32 @@
+language: python
+python:
+  - 2.7
+  - 3.5
+
+env:
+  - DJANGO=1.8
+  - DJANGO=1.9
+  - DJANGO=1.10
+  - DJANGO=1.11
+  - DJANGO=2.0
+matrix:
+  exclude:
+    - { python: 2.7, env: DJANGO=2.0 }
+
+addons:
+  postgresql: "9.4"
+  apt:
+    sources:
+      - travis-ci/sqlite3
+    packages:
+      - sqlite3
+services:
+  - postgresql
+
+install:
+  - pip install -r retrieverdash/requirements.txt
+script:
+  - retriever ls
+before_script:
+  - sqlite3 --version
+  - psql -c 'create database testdb;' -U postgres
