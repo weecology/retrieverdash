@@ -9,8 +9,8 @@ from retriever.engines import engine_list
 from retriever.lib.engine_tools import getmd5
 
 sqlite_engine = [eng for eng in engine_list if eng.name == 'SQLite'][0]
-
 file_location = os.path.dirname(os.path.realpath(__file__))
+temp_file_location = os.path.join(file_location, 'temp_files')
 
 example_datasets = ['bird-size', 'mammal-masses', 'airports', 'portal']
 
@@ -33,18 +33,23 @@ def get_dataset_md5(dataset, use_cache=False, debug=True):
     ...
     683c8adfe780607ac31f58926cf1d326
     """
-    db_name = '{}_sqlite.db'.format(dataset.name.replace('-', '_'))
-    workdir = mkdtemp(dir=file_location)
-    os.chdir(workdir)
-    install_sqlite(dataset.name, use_cache=use_cache,
-                   file=os.path.join(file_location, db_name),
-                   debug=debug)
-    engine_obj = dataset.checkengine(sqlite_engine)
-    engine_obj.to_csv()
-    current_md5 = getmd5(os.getcwd(), data_type='dir')
-    os.chdir(file_location)
-    os.remove(db_name)
-    rmtree(workdir)
+    try:
+        db_name = '{}_sqlite.db'.format(dataset.name.replace('-', '_'))
+        workdir = mkdtemp(dir=temp_file_location)
+        os.chdir(workdir)
+        install_sqlite(dataset.name, use_cache=use_cache,
+                       file=os.path.join(temp_file_location, db_name),
+                       debug=debug)
+        engine_obj = dataset.checkengine(sqlite_engine)
+        engine_obj.to_csv()
+        current_md5 = getmd5(os.getcwd(), data_type='dir')
+    except Exception:
+        raise
+    finally:
+        os.chdir(temp_file_location)
+        if os.path.isfile(db_name):
+            os.remove(db_name)
+        rmtree(workdir)
     return current_md5
 
 
@@ -55,6 +60,17 @@ def create_diff(csv1, csv2, diff_file, context, numlines):
     csv1 : The first csv file.
     csv2 : The second csv file.
     diff_file : The diff_file that is to be generated.
+    context : set to True for contextual differences (defaults to False
+            which shows full differences i.e. the whole file. Lines that
+            have changes and also those that don't have any changes).
+    numlines : number of context lines. When context is set to True,
+            controls number of lines(extra lines) displayed before
+            and after the lines where the changes have been made.
+            When context is False, controls the number of lines to place
+            the "next" link anchors before the next change in the diff html
+            file (so click of "next" link jumps to just before the change).
+            It basically is used to position the "next" anchor tag a particular
+            number of lines before the change.
 
     Returns
     -------
@@ -81,6 +97,8 @@ def create_dirs():
     """
     Creates directories required for creating diffs.
     """
+    if not os.path.exists(os.path.join(file_location, 'temp_files')):
+        os.makedirs(os.path.join(file_location, 'temp_files'))
     if not os.path.exists(os.path.join(file_location, 'old')):
         os.makedirs(os.path.join(file_location, 'old'))
     if not os.path.exists(os.path.join(file_location, 'current')):
@@ -98,12 +116,16 @@ def dataset_to_csv(dataset):
     Creates a temporary database and converts
     tables of a particular dataset to csv.
     """
-    db_name = '{}_sqlite.db'.format(dataset.name.replace('-', '_'))
-    install_sqlite(dataset.name, use_cache=False,
-                   file=os.path.join(file_location, db_name))
-    engine_obj = dataset.checkengine(sqlite_engine)
-    engine_obj.to_csv(sort=False)
-    os.remove(os.path.join(file_location, db_name))
+    try:
+        db_name = '{}_sqlite.db'.format(dataset.name.replace('-', '_'))
+        install_sqlite(dataset.name, use_cache=False,
+                       file=os.path.join(file_location, db_name))
+        engine_obj = dataset.checkengine(sqlite_engine)
+        engine_obj.to_csv(sort=False)
+    except Exception:
+        raise
+    finally:
+        os.remove(os.path.join(file_location, db_name))
 
 
 def diff_generator(dataset):
