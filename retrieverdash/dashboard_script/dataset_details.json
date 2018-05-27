@@ -1,0 +1,342 @@
+{
+    "abalone-age": {
+        "md5": "bdd8614d42dd6215b6b15c9dbf955157",
+        "reason": null,
+        "status": true
+    },
+    "airports": {
+        "md5": "88e991a926fbfff9ac48e8c60ed25d50",
+        "reason": null,
+        "status": true
+    },
+    "amniote-life-hist": {
+        "md5": "d41d8cd98f00b204e9800998ecf8427e",
+        "reason": null,
+        "status": true
+    },
+    "antarctic-breed-bird": {
+        "md5": "4285a94324efb8087d1dbe93a9cea5fa",
+        "reason": null,
+        "status": true
+    },
+    "aquatic-animal-excretion": {
+        "md5": "d41d8cd98f00b204e9800998ecf8427e",
+        "reason": null,
+        "status": true
+    },
+    "bioclim": {
+        "md5": null,
+        "reason": "The Bioclim dataset contains only non-tabular data files, and can only be used with the 'download only' engine.",
+        "status": false
+    },
+    "biodiversity-response": {
+        "md5": "5d647a8259ef90b32f712a06dfad6dfe",
+        "reason": null,
+        "status": true
+    },
+    "biomass-allometry-db": {
+        "md5": "d41d8cd98f00b204e9800998ecf8427e",
+        "reason": null,
+        "status": true
+    },
+    "bird-migration-data": {
+        "md5": "2379e0ff3e14b9315c559661c4f6813b",
+        "reason": null,
+        "status": true
+    },
+    "bird-size": {
+        "md5": "98dcfdca19d729c90ee1c6db5221b775",
+        "reason": null,
+        "status": true
+    },
+    "breast-cancer-wi": {
+        "md5": "01e80f2b2865d706f00e20d901d6f363",
+        "reason": null,
+        "status": true
+    },
+    "breed-bird-survey": {
+        "md5": "d41d8cd98f00b204e9800998ecf8427e",
+        "reason": null,
+        "status": true
+    },
+    "breed-bird-survey-50stop": {
+        "md5": "d41d8cd98f00b204e9800998ecf8427e",
+        "reason": null,
+        "status": true
+    },
+    "breed-bird-survey-nlcd": {
+        "md5": "aa3b17c6e7f6e9bd1cd7b0880962c256",
+        "reason": null,
+        "status": true
+    },
+    "butterfly-population-network": {
+        "md5": "43d6f47e124025c80895315f3af61696",
+        "reason": null,
+        "status": true
+    },
+    "car-eval": {
+        "md5": "2fc338d67f7cfcfc2f35c9e65fec3e97",
+        "reason": null,
+        "status": true
+    },
+    "chytr-disease-distr": {
+        "md5": "c641e84a6b5ef35dac0f806350bc7c8b",
+        "reason": null,
+        "status": true
+    },
+    "community-abundance-misc": {
+        "md5": "79790bb1fa617bf000ca213b8fa918ea",
+        "reason": null,
+        "status": true
+    },
+    "croche-vegetation-data": {
+        "md5": "4207ca7190ed08e4144f09d90ef422f8",
+        "reason": null,
+        "status": true
+    },
+    "dicerandra-frutescens": {
+        "md5": "ad3d442d4950c8bd28c0b88bb928c0fd",
+        "reason": null,
+        "status": true
+    },
+    "elton-traits": {
+        "md5": "9da42cd158074d68eb464e8c7b37d3ee",
+        "reason": null,
+        "status": true
+    },
+    "fish-parasite-hosts": {
+        "md5": "9bf228c891e12a97df3d4b912f7e698b",
+        "reason": null,
+        "status": true
+    },
+    "flensburg-food-web": {
+        "md5": "d41d8cd98f00b204e9800998ecf8427e",
+        "reason": null,
+        "status": true
+    },
+    "forest-biomass-china": {
+        "md5": "98979bd270a282ac56431ea12797f162",
+        "reason": null,
+        "status": true
+    },
+    "forest-fires-portugal": {
+        "md5": "73706c2e3a40c9b719a16279cf70460f",
+        "reason": null,
+        "status": true
+    },
+    "forest-inventory-analysis": {
+        "md5": null,
+        "reason": "Remote end closed connection without response",
+        "status": false
+    },
+    "forest-plots-michigan": {
+        "md5": null,
+        "reason": "no such table: forest_plots_michigan_upland_plots_1989_2007",
+        "status": false
+    },
+    "forest-plots-wghats": {
+        "md5": null,
+        "reason": "no such table: forest_plots_wghats_species",
+        "status": false
+    },
+    "fray-jorge-ecology": {
+        "md5": null,
+        "reason": "no such table: fray_jorge_ecology_seed03052",
+        "status": false
+    },
+    "gdp": {
+        "md5": null,
+        "reason": "no such table: gdp_gdp",
+        "status": false
+    },
+    "gentry-forest-transects": {
+        "md5": "d41d8cd98f00b204e9800998ecf8427e",
+        "reason": null,
+        "status": true
+    },
+    "la-selva-trees": {
+        "md5": "0ca1a030503024307e8b38dbd8a50752",
+        "reason": null,
+        "status": true
+    },
+    "leaf-herbivory": {
+        "md5": "1f0c56cf81586d350f45466de47d4078",
+        "reason": null,
+        "status": true
+    },
+    "macroalgal_communities": {
+        "md5": "1e2f5edbfcd4a1cf3fbda5c4a2112107",
+        "reason": null,
+        "status": true
+    },
+    "macrocystis-variation": {
+        "md5": "d4dfe7ba5a7b8fce018ccd7870990ccc",
+        "reason": null,
+        "status": true
+    },
+    "mammal-community-db": {
+        "md5": "4a32ebf2ce742b3f3570a0faf30d39c2",
+        "reason": null,
+        "status": true
+    },
+    "mammal-diet": {
+        "md5": "a4ec4d166732577e2812e2bb580065cb",
+        "reason": null,
+        "status": true
+    },
+    "mammal-life-hist": {
+        "md5": "49ebfe94eeca2d22b00da6938cfb993b",
+        "reason": null,
+        "status": true
+    },
+    "mammal-masses": {
+        "md5": "6fec0fc63007a4040d9bbc5cfcd9953e",
+        "reason": null,
+        "status": true
+    },
+    "mammal-metabolic-rate": {
+        "md5": "04233c1ea1db447df39e7b03e8c6aa31",
+        "reason": null,
+        "status": true
+    },
+    "mammal-super-tree": {
+        "md5": null,
+        "reason": "The mammal-super-tree dataset contains only non-tabular data files, and can only be used with the 'download only' engine.",
+        "status": false
+    },
+    "mapped-plant-quads-co": {
+        "md5": "477f9d173d6bfa9ffe53b1c0f8ae07d3",
+        "reason": null,
+        "status": true
+    },
+    "mapped-plant-quads-id": {
+        "md5": "73450c81b2573811753661ddec53de22",
+        "reason": null,
+        "status": true
+    },
+    "mapped-plant-quads-ks": {
+        "md5": null,
+        "reason": "no such table: mapped_plant_quads_ks_quadrat_inventory",
+        "status": false
+    },
+    "mapped-plant-quads-mt": {
+        "md5": null,
+        "reason": "no such table: mapped_plant_quads_mt_species_list",
+        "status": false
+    },
+    "marine-recruitment-data": {
+        "md5": null,
+        "reason": "no such table: marine_recruitment_data_plot_data",
+        "status": false
+    },
+    "mediter-basin-plant-traits": {
+        "md5": null,
+        "reason": "no such table: mediter_basin_plant_traits_species",
+        "status": false
+    },
+    "mt-st-helens-veg": {
+        "md5": null,
+        "reason": "no such table: mt_st_helens_veg_structure_plot_year",
+        "status": false
+    },
+    "nd-gain": {
+        "md5": null,
+        "reason": "no such table: nd_gain_indicators_id_gove_01_score",
+        "status": false
+    },
+    "nematode-traits": {
+        "md5": null,
+        "reason": "no such table: nematode_traits_Trait",
+        "status": false
+    },
+    "ngreatplains-flowering-dates": {
+        "md5": null,
+        "reason": "no such table: ngreatplains_flowering_dates_observations",
+        "status": false
+    },
+    "nla": {
+        "md5": null,
+        "reason": "no such table: nla_buffer_landuse_metrics_2007",
+        "status": false
+    },
+    "partners-in-flight": {
+        "md5": "ccdf27f5deb1c7c7818b932b74f89305",
+        "reason": null,
+        "status": true
+    },
+    "phytoplankton-size": {
+        "md5": "854ca157837d62322c415b2037b5cc69",
+        "reason": null,
+        "status": true
+    },
+    "plant-comp-ok": {
+        "md5": null,
+        "reason": "field larger than field limit (131072)",
+        "status": false
+    },
+    "plant-life-hist-eu": {
+        "md5": null,
+        "reason": "no such table: plant_life_hist_eu_Seed_shape",
+        "status": false
+    },
+    "plant-occur-oosting": {
+        "md5": null,
+        "reason": "no such table: plant_occur_oosting_species",
+        "status": false
+    },
+    "plant-taxonomy-us": {
+        "md5": null,
+        "reason": "no such table: plant_taxonomy_us_PlantTaxonomy",
+        "status": false
+    },
+    "socean-diet-data": {
+        "md5": null,
+        "reason": "no such table: socean_diet_data_isotopes",
+        "status": false
+    },
+    "species-exctinction-rates": {
+        "md5": null,
+        "reason": "no such table: species_exctinction_rates_richness",
+        "status": false
+    },
+    "streamflow-conditions": {
+        "md5": null,
+        "reason": "no such table: streamflow_conditions_topo",
+        "status": false
+    },
+    "tree-canopy-geometries": {
+        "md5": null,
+        "reason": "no such table: tree_canopy_geometries_Mango2",
+        "status": false
+    },
+    "tree-demog-wghats": {
+        "md5": null,
+        "reason": "no such table: tree_demog_wghats_sp_list",
+        "status": false
+    },
+    "turtle-offspring-nesting": {
+        "md5": null,
+        "reason": "no such table: turtle_offspring_nesting_species",
+        "status": false
+    },
+    "veg-plots-sdl": {
+        "md5": null,
+        "reason": "no such table: veg_plots_sdl_Stake_info",
+        "status": false
+    },
+    "wine-composition": {
+        "md5": null,
+        "reason": "no such table: wine_composition_WineComposition",
+        "status": false
+    },
+    "wine-quality": {
+        "md5": null,
+        "reason": "no such table: wine_quality_red",
+        "status": false
+    },
+    "wood-density": {
+        "md5": null,
+        "reason": "no such table: wood_density_data",
+        "status": false
+    }
+}
