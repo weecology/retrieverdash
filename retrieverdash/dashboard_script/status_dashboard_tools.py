@@ -15,7 +15,7 @@ temp_file_location = os.path.join(file_location, 'temp_files')
 example_datasets = ['bird-size', 'mammal-masses', 'airports', 'portal']
 
 
-def get_dataset_md5(dataset, use_cache=False, debug=True):
+def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_location):
     """
     Parameters
     ----------
@@ -35,10 +35,10 @@ def get_dataset_md5(dataset, use_cache=False, debug=True):
     """
     try:
         db_name = '{}_sqlite.db'.format(dataset.name.replace('-', '_'))
-        workdir = mkdtemp(dir=temp_file_location)
+        workdir = mkdtemp(dir=location)
         os.chdir(workdir)
         install_sqlite(dataset.name, use_cache=use_cache,
-                       file=os.path.join(temp_file_location, db_name),
+                       file=os.path.join(location, db_name),
                        debug=debug)
         engine_obj = dataset.checkengine(sqlite_engine)
         engine_obj.to_csv()
@@ -46,7 +46,7 @@ def get_dataset_md5(dataset, use_cache=False, debug=True):
     except Exception:
         raise
     finally:
-        os.chdir(temp_file_location)
+        os.chdir(location)
         if os.path.isfile(db_name):
             os.remove(db_name)
         rmtree(workdir)
@@ -93,18 +93,18 @@ def create_diff(csv1, csv2, diff_file, context, numlines):
         pass
 
 
-def create_dirs():
+def create_dirs(location=file_location):
     """
     Creates directories required for creating diffs.
     """
-    if not os.path.exists(os.path.join(file_location, 'temp_files')):
-        os.makedirs(os.path.join(file_location, 'temp_files'))
-    if not os.path.exists(os.path.join(file_location, 'old')):
-        os.makedirs(os.path.join(file_location, 'old'))
-    if not os.path.exists(os.path.join(file_location, 'current')):
-        os.makedirs(os.path.join(file_location, 'current'))
-    if not os.path.exists(os.path.join(file_location, 'diffs')):
-        os.makedirs(os.path.join(file_location, 'diffs'))
+    if not os.path.exists(os.path.join(location, 'temp_files')):
+        os.makedirs(os.path.join(location, 'temp_files'))
+    if not os.path.exists(os.path.join(location, 'old')):
+        os.makedirs(os.path.join(location, 'old'))
+    if not os.path.exists(os.path.join(location, 'current')):
+        os.makedirs(os.path.join(location, 'current'))
+    if not os.path.exists(os.path.join(location, 'diffs')):
+        os.makedirs(os.path.join(location, 'diffs'))
 
 
 def dataset_to_csv(dataset):
@@ -128,7 +128,7 @@ def dataset_to_csv(dataset):
         os.remove(os.path.join(file_location, db_name))
 
 
-def diff_generator(dataset):
+def diff_generator(dataset,location=file_location):
     """
     Generates the diff and moves file from
     current directory to old directory.
@@ -137,13 +137,13 @@ def diff_generator(dataset):
         file_name = '{}_{}'.format(dataset.name.replace('-', '_'), keys)
         csv_file_name = '{}.csv'.format(file_name)
         html_file_name = '{}.html'.format(file_name)
-        create_diff(os.path.join(file_location, 'old', csv_file_name),
-                    os.path.join(file_location, 'current', csv_file_name),
-                    os.path.join(file_location, 'diffs', html_file_name),
+        create_diff(os.path.join(location, 'old', csv_file_name),
+                    os.path.join(location, 'current', csv_file_name),
+                    os.path.join(location, 'diffs', html_file_name),
                     context=True, numlines=1)
-        move(os.path.join(file_location, 'current', csv_file_name),
-             os.path.join(file_location, 'old', csv_file_name))
-        os.chdir(os.path.join(file_location))
+        move(os.path.join(location, 'current', csv_file_name),
+             os.path.join(location, 'old', csv_file_name))
+        os.chdir(os.path.join(location))
 
 
 def create_json(path="dataset_details.json"):
