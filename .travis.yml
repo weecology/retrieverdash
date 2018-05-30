@@ -19,6 +19,8 @@ install:
   - pip install -r retrieverdash/requirements.txt
 script:
   - retriever ls
+  - cd retrieverdash/dashboard_script/
+  - python -m unittest test_dashboard_script.py
 before_script:
   - sqlite3 --version
   - psql -c 'create database testdb;' -U postgres
