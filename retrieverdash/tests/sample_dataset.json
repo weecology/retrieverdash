@@ -19,7 +19,7 @@
                 ],
                 "contains_pk":"True"
             },
-            "url":"https://raw.githubusercontent.com/apoorvaeternity/sample-dataset/master/original/Portal_rodents_19772002.csv",
+            "url":"https://raw.githubusercontent.com/weecology/retrieverdash/master/retrieverdash/tests/data/dataset/original/Portal_rodents_19772002.csv",
             "name":"main",
             "schema":{
                 "fields":[
