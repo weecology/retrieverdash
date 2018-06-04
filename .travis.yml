@@ -20,8 +20,7 @@ install:
 script:
   - python retrieverdash/setup.py install
   - retriever ls
-  - cd retrieverdash/tests/
-  - pytest test_dashboard_script.py -v
+  - pytest -v
 before_script:
   - sqlite3 --version
   - psql -c 'create database testdb;' -U postgres
