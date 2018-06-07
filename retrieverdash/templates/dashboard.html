@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Retriever Dashboard</title>
+</head>
+<body>
+{% for dataset, detail in datasets.items %}
+{{dataset}}
+{{detail.md5}}
+{{detail.status}}
+{% ifequal detail.status False%}
+{{detail.reason}}
+{% endifequal %}
+<br>
+{% endfor %}
+</body>
+</html>
