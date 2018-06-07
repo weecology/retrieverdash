@@ -1,0 +1,42 @@
+{
+    "abalone-age": {
+        "md5": "bdd8614d42dd6215b6b15c9dbf955157",
+        "reason": null,
+        "status": true
+    },
+    "airports": {
+        "md5": "2907b241038181be6cafffd09b0507a9",
+        "reason": null,
+        "status": true
+    },
+    "biodiversity-response": {
+        "md5": "5d647a8259ef90b32f712a06dfad6dfe",
+        "reason": null,
+        "status": true
+    },
+    "bird-size": {
+        "md5": "98dcfdca19d729c90ee1c6db5221b775",
+        "reason": null,
+        "status": true
+    },
+    "breast-cancer-wi": {
+        "md5": "01e80f2b2865d706f00e20d901d6f363",
+        "reason": null,
+        "status": true
+    },
+    "butterfly-population-network": {
+        "md5": "43d6f47e124025c80895315f3af61696",
+        "reason": null,
+        "status": true
+    },
+    "partners-in-flight": {
+        "md5": "d8e7906964025f114cec930b96176547",
+        "reason": null,
+        "status": true
+    },
+    "portal": {
+        "md5": "22f8b800d05730db9f0605fa9e33f8b0",
+        "reason": null,
+        "status": true
+    }
+}
