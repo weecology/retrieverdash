@@ -5,9 +5,9 @@ from multiprocessing import Pool
 from filelock import FileLock
 from retriever import datasets
 
-from status_dashboard_tools import get_dataset_md5
-from status_dashboard_tools import diff_generator
-from status_dashboard_tools import create_dirs
+from .status_dashboard_tools import get_dataset_md5
+from .status_dashboard_tools import diff_generator
+from .status_dashboard_tools import create_dirs
 
 file_location = os.path.dirname(os.path.realpath(__file__))
 
@@ -19,12 +19,6 @@ example_datasets = ['abalone-age',
                     'butterfly-population-network',
                     'partners-in-flight',
                     'portal']
-try:
-    dataset_detail = json.load(open('dataset_details.json', 'r'))
-except IOError:
-    with open("dataset_details.json", 'w') as json_file:
-        dataset_detail = dict()
-        json.dump(dataset_detail, json_file)
 
 
 def check_dataset(dataset):
@@ -34,6 +28,12 @@ def check_dataset(dataset):
     reason = None
     diff = None
     try:
+        try:
+            dataset_detail = json.load(open('dataset_details.json', 'r'))
+        except FileNotFoundError:
+            with open("dataset_details.json", 'w') as json_file:
+                dataset_detail = dict()
+                json.dump(dataset_detail, json_file)
         md5 = get_dataset_md5(dataset)
         if dataset.name not in dataset_detail \
                 or md5 != dataset_detail[dataset.name]['md5']:
@@ -57,8 +57,12 @@ def check_dataset(dataset):
                       sort_keys=True, indent=4)
 
 
-if __name__ == '__main__':
+def run():
     create_dirs()
     pool = Pool(processes=3)
     pool.map(check_dataset, [dataset for dataset in datasets()
                              if dataset.name in example_datasets])
+
+
+if __name__ == '__main__':
+    run()
