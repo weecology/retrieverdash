@@ -10,7 +10,7 @@ import json
 file_path = os.path.join(PROJECT_ROOT, 'dashboard_script/dataset_details.json')
 
 class DashboardView(View):
-    template_name = "dashboard.html"
+    template_name = "new_dashboard.html"
 
     def get(self, request, *args, **kwargs):
         dataset_detail = json.load(open(file_path, 'r'))
