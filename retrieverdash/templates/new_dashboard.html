@@ -92,24 +92,30 @@
 
 <div class="content">
     <div style="overflow-x: auto">
+
         <table>
             <tr>
                 <th>Dataset</th>
                 <th>MD5</th>
                 <th>Status</th>
-                <th>Reason for failure</th>
+                <th>diff</th>
             </tr>
-            {% for dataset, detail in datasets.items %}
+            {% for dataset, detail in datasets.items|dictsort:"0.lower" %}
             <tr>
                 <td>{{dataset}}</td>
                 <td>{{detail.md5}}</td>
                 {% ifequal detail.status False%}
                 <td>Failing</td>
-                <td>{{detail.reason}}</td>
                 {% else %}
                 <td>Installing</td>
-                <td>N/A</td>
                 {% endifequal %}
+                <td>
+                    <table>{% for table_name, file_name in detail.diff.items %}
+                        <tr><a href="{% url 'core:diff' file_name %}" target="_blank">{{table_name}}</a></tr>
+                        <br>
+                        {% endfor %}
+                    </table>
+                </td>
             </tr>
             {% endfor %}
         </table>

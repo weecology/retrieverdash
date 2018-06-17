@@ -1,6 +1,9 @@
-from django.conf.urls import url
-from .views import DashboardView
+from django.urls import path
+from .views import DashboardView, DiffView
 
+app_name = 'core'
 urlpatterns = [
-    url(r'^', DashboardView.as_view(), name='dashboard')
+    path('diff/<str:filename>/', DiffView.as_view(), name='diff'),
+    path('', DashboardView.as_view(), name='dashboard'),
+
 ]

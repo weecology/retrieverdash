@@ -1,40 +1,61 @@
 {
     "abalone-age": {
+        "diff": null,
         "md5": "bdd8614d42dd6215b6b15c9dbf955157",
         "reason": null,
         "status": true
     },
     "airports": {
-        "md5": "c79939473dff03029ab44b39d4c4cd84",
+        "diff": {
+            "airport_frequencies": "airports_airport_frequencies.html",
+            "airports": "airports_airports.html",
+            "countries": "airports_countries.html",
+            "navaids": "airports_navaids.html",
+            "regions": "airports_regions.html",
+            "runways": "airports_runways.html"
+        },
+        "md5": "9431299b8b0c420fb96564e486151263",
         "reason": null,
         "status": true
     },
     "biodiversity-response": {
+        "diff": null,
         "md5": "5d647a8259ef90b32f712a06dfad6dfe",
         "reason": null,
         "status": true
     },
     "bird-size": {
+        "diff": null,
         "md5": "98dcfdca19d729c90ee1c6db5221b775",
         "reason": null,
         "status": true
     },
     "breast-cancer-wi": {
+        "diff": null,
         "md5": "01e80f2b2865d706f00e20d901d6f363",
         "reason": null,
         "status": true
     },
     "butterfly-population-network": {
+        "diff": null,
         "md5": "43d6f47e124025c80895315f3af61696",
         "reason": null,
         "status": true
     },
     "partners-in-flight": {
-        "md5": "55e40f8f5efd0e9e373d819d949108f9",
+        "diff": {
+            "Global_2017_CAM": "partners_in_flight_Global_2017_CAM.html",
+            "Global_2017_Canada": "partners_in_flight_Global_2017_Canada.html",
+            "Global_2017_MEXICO": "partners_in_flight_Global_2017_MEXICO.html",
+            "Global_2017_United_States": "partners_in_flight_Global_2017_United_States.html",
+            "PIF_2012_BCR_all": "partners_in_flight_PIF_2012_BCR_all.html"
+        },
+        "md5": "63eec9cd62017aeece97718197678737",
         "reason": null,
         "status": true
     },
     "portal": {
+        "diff": null,
         "md5": "aaa2b66a3a77efe416e3555c444f4e2e",
         "reason": null,
         "status": true

@@ -33,13 +33,14 @@ def check_dataset(dataset):
     md5 = None
     status = None
     reason = None
+    diff = None
     try:
         md5 = get_dataset_md5(dataset)
         if dataset.name not in dataset_detail \
                 or md5 != dataset_detail[dataset.name]['md5']:
             os.chdir(os.path.join(file_location, 'current'))
             dataset_to_csv(dataset)
-            diff_generator(dataset)
+            diff = diff_generator(dataset)
         status = True
     except Exception as e:
         reason = str(e)
@@ -52,7 +53,8 @@ def check_dataset(dataset):
             json_file_details[dataset.name] = {
                 "md5": md5,
                 "status": status,
-                "reason": reason}
+                "reason": reason,
+                "diff": diff}
             dataset_details_write = open('dataset_details.json', 'w')
             json.dump(json_file_details, dataset_details_write,
                       sort_keys=True, indent=4)
