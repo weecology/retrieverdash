@@ -98,7 +98,7 @@
                 <th>Dataset</th>
                 <th>MD5</th>
                 <th>Status</th>
-                <th>diff</th>
+                <th>Diff of tables</th>
             </tr>
             {% for dataset, detail in datasets.items|dictsort:"0.lower" %}
             <tr>
@@ -110,7 +110,7 @@
                 <td>Installing</td>
                 {% endifequal %}
                 <td>
-                    <table>{% for table_name, file_name in detail.diff.items %}
+                    <table>{% for table_name, file_name in detail.diff.items|dictsort:"0.lower" %}
                         <tr><a href="{% url 'core:diff' file_name %}" target="_blank">{{table_name}}</a></tr>
                         <br>
                         {% endfor %}
