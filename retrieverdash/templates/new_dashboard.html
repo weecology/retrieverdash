@@ -5,7 +5,7 @@
     <title>Data Retriever Dashboard</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{%static 'image/logo_small.png' %}">
+    <link rel="shortcut icon" href="{%static 'image/logo_small.png' %}" type="image/png">
     <style>
         * {
             box-sizing: border-box;
@@ -24,7 +24,7 @@
         }
 
         .header {
-            background-color: #001D4A;
+            background-color: #59821e;
             text-align: center;
             font-size: 2.5em;
         }
@@ -44,12 +44,12 @@
 
         .content {
             flex: 1;
-            background-color: #EAF8BF;
+            background-color: #b4be60;
             color: #3a4144;
         }
 
         .footer {
-            background-color: #001D4A;
+            background-color: #59821e;
             padding: 2%;
             text-align: center;
             width: 100%;
@@ -61,6 +61,8 @@
             border-collapse: collapse;
             width: 85%;
             margin: auto;
+            margin-bottom: 2%;
+            box-shadow: 0 0 10px;
         }
 
         th, td {
@@ -69,15 +71,56 @@
         }
 
         tr:nth-child(odd) td {
-            background: rgba(255, 255, 255, 0.466);
+            background: #d3d6cd;
+        }
+
+        tr:nth-child(even) {
+            background: #e0eaf3;
         }
 
         th {
-            background: #ffffff;
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .tableContainer {
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        #search {
+            border: 1px solid #DADADA;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 85%;
+            height: 40px;
+            font-size: 20px;
+            box-shadow: 0 0 10px;
+            border-radius: 5px;
+            text-align: center;
         }
 
         }
     </style>
+    <script>
+        function searchFunction() {
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("search");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("datasetTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -91,9 +134,9 @@
 </div>
 
 <div class="content">
-    <div style="overflow-x: auto">
-
-        <table>
+    <div class="tableContainer">
+        <input type="search" id="search" onkeyup="searchFunction()" placeholder="Search Dataset">
+        <table id="datasetTable">
             <tr>
                 <th>Dataset</th>
                 <th>MD5</th>
