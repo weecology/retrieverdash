@@ -13,9 +13,7 @@ mysql_engine, postgres_engine, sqlite_engine, msaccess_engine, \
 csv_engine, download_engine, json_engine, xml_engine = engine_list
 file_location = os.path.dirname(os.path.realpath(__file__))
 precalculated_md5 = '9f6c106f696451732fb763b3632bfd48'
-modified_dataset_url = 'https://raw.githubusercontent.com/weecology/' \
-                       'retrieverdash/master/retrieverdash/tests/data/' \
-                       'dataset/modified/Portal_rodents_19772002.csv'
+modified_dataset_path = "dataset/modified/Portal_rodents_19772002.csv"
 test_files_location = os.path.join(file_location, 'test_dir')
 
 
@@ -38,7 +36,7 @@ def test_status_dashboard():
     os.remove('test_db.sqlite3')
 
     # Finding the md5 of the modified dataset
-    setattr(script_module.tables['main'], 'url', modified_dataset_url)
+    setattr(script_module.tables['main'], 'path', modified_dataset_path)
     workdir = mkdtemp()
     os.chdir(workdir)
     sqlite_engine.use_cache = False
