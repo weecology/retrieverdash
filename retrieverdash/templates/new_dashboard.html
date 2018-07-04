@@ -139,14 +139,12 @@
         <table id="datasetTable">
             <tr>
                 <th>Dataset</th>
-                <th>MD5</th>
                 <th>Status</th>
                 <th>Diff of tables</th>
             </tr>
             {% for dataset, detail in datasets.items|dictsort:"0.lower" %}
             <tr>
                 <td>{{dataset}}</td>
-                <td>{{detail.md5}}</td>
                 {% ifequal detail.status False%}
                 <td>Failing</td>
                 {% else %}
