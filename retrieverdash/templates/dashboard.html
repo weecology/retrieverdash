@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+{% include 'header.html' %}
+<div class="content">
+    <div class="tableContainer">
+        <input type="search" id="search" onkeyup="searchFunction()" placeholder="Search Dataset">
+        <table id="datasetTable">
+            <tr>
+                <th>Dataset</th>
+                <th>Status</th>
+                <th>Diff of tables</th>
+            </tr>
+            {% for dataset, detail in datasets.items|dictsort:"0.lower" %}
+            <tr>
+                <td>{{dataset}}</td>
+                {% ifequal detail.status False%}
+                <td>Failing</td>
+                {% else %}
+                <td>Installing</td>
+                {% endifequal %}
+                <td>
+                    <table>{% for table_name, file_name in detail.diff.items|dictsort:"0.lower" %}
+                        <tr><a href="{% url 'core:diff' file_name %}" target="_blank">{{table_name}}</a></tr>
+                        <br>
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% include 'footer.html' %}
+<script src="{% static 'js/search-dataset.js' %}"></script>
+{% endblock %}
+
+

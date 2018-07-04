@@ -14,7 +14,7 @@ diff_path = os.path.join(PROJECT_ROOT,
 
 
 class DashboardView(View):
-    template_name = "new_dashboard.html"
+    template_name = "dashboard.html"
 
     def get(self, request, *args, **kwargs):
         dataset_detail = json.load(open(file_path, 'r'))
