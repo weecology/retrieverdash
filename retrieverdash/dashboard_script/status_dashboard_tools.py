@@ -37,10 +37,11 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
         db_name = '{}_sqlite.db'.format(dataset.name.replace('-', '_'))
         workdir = mkdtemp(dir=location)
         os.chdir(workdir)
-        install_sqlite(dataset.name, use_cache=use_cache,
-                       file=os.path.join(location, db_name),
-                       debug=debug)
-        engine_obj = dataset.checkengine(sqlite_engine)
+        engine = sqlite_engine
+        engine.script_table_registry = {}
+        engine_obj = install_sqlite(dataset.name.replace('_', '-'), use_cache=use_cache,
+                                    file=os.path.join(location, db_name),
+                                    debug=debug)
         engine_obj.to_csv()
         current_md5 = getmd5(os.getcwd(), data_type='dir')
     except Exception:
