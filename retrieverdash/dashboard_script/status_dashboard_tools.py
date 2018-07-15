@@ -44,6 +44,10 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
                                     debug=debug)
         engine_obj.to_csv()
         current_md5 = getmd5(os.getcwd(), data_type='dir')
+        if os.path.exists(os.path.join(file_location, 'current')):
+            for file in os.listdir(workdir):
+                move(os.path.join(workdir, file),
+                     os.path.join(file_location, 'current'))
     except Exception:
         raise
     finally:
@@ -90,8 +94,9 @@ def create_diff(csv1, csv2, diff_file, context, numlines):
                                              context=context,
                                              numlines=numlines)
             file3.writelines(diff_lines)
+            return True
     except IOError:
-        pass
+        return False
 
 
 def create_dirs(location=file_location):
@@ -108,45 +113,25 @@ def create_dirs(location=file_location):
         os.makedirs(os.path.join(location, 'diffs'))
 
 
-def dataset_to_csv(dataset):
-    """
-    Parameters
-    ----------
-    dataset : dataset script object
-
-    Creates a temporary database and converts
-    tables of a particular dataset to csv.
-    """
-    try:
-        db_name = '{}_sqlite.db'.format(dataset.name.replace('-', '_'))
-        install_sqlite(dataset.name, use_cache=False,
-                       file=os.path.join(file_location, db_name))
-        engine_obj = dataset.checkengine(sqlite_engine)
-        engine_obj.to_csv(sort=False)
-    except Exception:
-        raise
-    finally:
-        os.remove(os.path.join(file_location, db_name))
-
-
-def diff_generator(dataset,location=file_location):
+def diff_generator(dataset, location=file_location):
     """
     Generates the diff and moves file from
     current directory to old directory.
     """
     tables = {}
+
     for keys in dataset.tables:
         file_name = '{}_{}'.format(dataset.name.replace('-', '_'), keys)
         csv_file_name = '{}.csv'.format(file_name)
         html_file_name = '{}.html'.format(file_name)
-        create_diff(os.path.join(location, 'old', csv_file_name),
-                    os.path.join(location, 'current', csv_file_name),
-                    os.path.join(location, 'diffs', html_file_name),
-                    context=True, numlines=1)
+        if create_diff(os.path.join(location, 'old', csv_file_name),
+                       os.path.join(location, 'current', csv_file_name),
+                       os.path.join(location, 'diffs', html_file_name),
+                       context=True, numlines=1):
+            tables[keys] = html_file_name
         move(os.path.join(location, 'current', csv_file_name),
              os.path.join(location, 'old', csv_file_name))
         os.chdir(os.path.join(location))
-        tables[keys] = html_file_name
     return tables
 
 

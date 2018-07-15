@@ -8,7 +8,6 @@ from retriever import datasets
 from status_dashboard_tools import get_dataset_md5
 from status_dashboard_tools import diff_generator
 from status_dashboard_tools import create_dirs
-from status_dashboard_tools import dataset_to_csv
 
 file_location = os.path.dirname(os.path.realpath(__file__))
 
@@ -38,8 +37,6 @@ def check_dataset(dataset):
         md5 = get_dataset_md5(dataset)
         if dataset.name not in dataset_detail \
                 or md5 != dataset_detail[dataset.name]['md5']:
-            os.chdir(os.path.join(file_location, 'current'))
-            dataset_to_csv(dataset)
             diff = diff_generator(dataset)
         status = True
     except Exception as e:
