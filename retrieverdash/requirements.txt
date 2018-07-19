@@ -1,4 +1,4 @@
-Django==1.11
+Django==2.0.0
 filelock
 pytz==2017.3
 git+https://www.github.com/weecology/retriever@master
