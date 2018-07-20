@@ -11,15 +11,6 @@ from .status_dashboard_tools import create_dirs
 
 file_location = os.path.dirname(os.path.realpath(__file__))
 
-example_datasets = ['abalone-age',
-                    'airports',
-                    'biodiversity-response',
-                    'bird-size',
-                    'breast-cancer-wi',
-                    'butterfly-population-network',
-                    'partners-in-flight',
-                    'portal']
-
 
 def check_dataset(dataset):
     os.chdir(os.path.join(file_location))
@@ -60,8 +51,7 @@ def check_dataset(dataset):
 def run():
     create_dirs()
     pool = Pool(processes=3)
-    pool.map(check_dataset, [dataset for dataset in datasets()
-                             if dataset.name in example_datasets])
+    pool.map(check_dataset, [dataset for dataset in datasets()])
 
 
 if __name__ == '__main__':
