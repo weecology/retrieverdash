@@ -45,6 +45,7 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab',
     'core'
 ]
 
@@ -139,3 +140,7 @@ except IOError:
             f.write(SECRET_KEY)
     except IOError:
         raise Exception('Could not open %s for writing!' % SECRET_FILE)
+
+CRONJOBS = [
+    ('0 0 * * 0', 'dashboard_script.dashboard_script.run')
+]
