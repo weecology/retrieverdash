@@ -146,3 +146,27 @@ def create_json(path="dataset_details.json"):
             data[dataset.name] = {"md5": get_dataset_md5(dataset)}
         with open(path, 'w') as json_file:
             json.dump(data, json_file, sort_keys=True, indent=4)
+
+
+def dataset_type(dataset):
+    """
+    Parameters
+    ----------
+    dataset : dataset script object
+
+    Returns
+    -------
+    str : The type of dataset.
+
+    Example
+    -------
+    >>> for dataset in datasets():
+    ...     if dataset.name=='aquatic-animal-excretion':
+    ...         print(dataset_type(dataset))
+    ...
+    tabular
+    """
+    for _, table_obj in dataset.tables.items():
+        if table_obj.dataset_type in ["RasterDataset", "VectorDataset"]:
+            return "spatial"
+    return "tabular"
