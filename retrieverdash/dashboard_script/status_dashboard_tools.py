@@ -167,6 +167,7 @@ def dataset_type(dataset):
     tabular
     """
     for _, table_obj in dataset.tables.items():
-        if table_obj.dataset_type in ["RasterDataset", "VectorDataset"]:
+        if hasattr(table_obj, 'dataset_type') and table_obj.dataset_type in \
+                ["RasterDataset", "VectorDataset"]:
             return "spatial"
     return "tabular"
