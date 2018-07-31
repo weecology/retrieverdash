@@ -4,7 +4,7 @@ from difflib import HtmlDiff
 from shutil import rmtree, move
 from tempfile import mkdtemp
 
-from retriever import install_sqlite, datasets
+from retriever import datasets
 from retriever.engines import engine_list
 from retriever.lib.engine_tools import getmd5
 
@@ -37,13 +37,21 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
         db_name = '{}_sqlite.db'.format(dataset.name.replace('-', '_'))
         workdir = mkdtemp(dir=location)
         os.chdir(workdir)
-        engine = sqlite_engine
+        engine = sqlite_engine.__new__(sqlite_engine.__class__)
         engine.script_table_registry = {}
-        engine_obj = install_sqlite(dataset.name.replace('_', '-'), use_cache=use_cache,
-                                    file=os.path.join(location, db_name),
-                                    debug=debug)
-        engine_obj.to_csv()
-        current_md5 = getmd5(os.getcwd(), data_type='dir')
+        args = {
+            'command': 'install',
+            'dataset': dataset,
+            'file': os.path.join(workdir, db_name),
+            'table_name': '{db}_{table}'
+        }
+        engine.opts = args
+        engine.use_cache = False
+        dataset.download(engine=engine, debug=True)
+        engine.to_csv()
+        engine.final_cleanup()
+        os.remove(os.path.join(workdir, db_name))
+        current_md5 = getmd5(os.path.join(file_location, workdir), data_type='dir')
         if os.path.exists(os.path.join(file_location, 'current')):
             for file in os.listdir(workdir):
                 move(os.path.join(workdir, file),

@@ -23,13 +23,13 @@ json_datasets = ['macroalgal-communities', 'species-exctinction-rates', 'veg-plo
                  'community-abundance-misc', 'plant-occur-oosting', 'mammal-life-hist', 'abalone-age',
                  'tree-canopy-geometries', 'mapped-plant-quads-id', 'car-eval', 'mt-st-helens-veg',
                  'streamflow-conditions', 'plant-taxonomy-us', 'mapped-plant-quads-mt', 'macrocystis-variation',
-                 'nematode-traits', 'chytr-disease-distr', 'turtle-offspring-nesting', 'biotime',
+                 'nematode-traits', 'chytr-disease-distr', 'turtle-offspring-nesting',
                  'mammal-community-db', 'bird-migration-data', 'forest-biomass-china', 'mapped-plant-quads-ks',
                  'croche-vegetation-data', 'mammal-masses', 'antarctic-breed-bird', 'elton-traits', 'home-ranges',
                  'butterfly-population-network', 'partners-in-flight', 'forest-fires-portugal', 'bird-size',
                  'mediter-basin-plant-traits', 'ngreatplains-flowering-dates', 'great-basin-mammal-abundance',
                  'phytoplankton-size', 'portal', 'dicerandra-frutescens', 'predator-prey-body-ratio',
-                 'wine-composition', 'globi-interaction', 'marine-recruitment-data', 'portal-dev', 'poker-hands']
+                 'wine-composition', 'marine-recruitment-data', 'portal-dev', 'poker-hands']
 
 
 def check_dataset(dataset):
@@ -50,8 +50,7 @@ def check_dataset(dataset):
             workdir = None
             try:
                 workdir = mkdtemp(dir=file_location)
-                os.chdir(workdir)
-                download(dataset)
+                download(dataset,path=workdir)
             except Exception:
                 raise
             finally:
