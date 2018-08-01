@@ -18,7 +18,7 @@ services:
 install:
   - pip install -r retrieverdash/requirements.txt
 script:
-  - python retrieverdash/setup.py install
+  - python setup.py install
   - retriever ls
   - pytest -v
 before_script:
