@@ -7,6 +7,7 @@ from tempfile import mkdtemp
 from filelock import FileLock
 from retriever import datasets
 from retriever import download
+from retriever.lib.engine_tools import getmd5
 
 from status_dashboard_tools import get_dataset_md5
 from status_dashboard_tools import diff_generator
@@ -34,7 +35,8 @@ def check_dataset(dataset):
             workdir = None
             try:
                 workdir = mkdtemp(dir=file_location)
-                download(dataset, path=workdir)
+                download(dataset.name, path=workdir)
+                md5 = getmd5(workdir, data_type='dir')
             except Exception:
                 raise
             finally:
