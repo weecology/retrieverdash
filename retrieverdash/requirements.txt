@@ -3,3 +3,4 @@ filelock
 pytz==2017.3
 git+https://www.github.com/weecology/retriever@master
 pytest-django
+django-crontab
