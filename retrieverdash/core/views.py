@@ -17,10 +17,11 @@ class DashboardView(View):
     template_name = "dashboard.html"
 
     def get(self, request, *args, **kwargs):
-        dataset_detail = json.load(open(file_path, 'r'))
+        json_detail = json.load(open(file_path, 'r'))
         return render(request, self.template_name,
-                      context={'datasets': dataset_detail,
-                               'diff_path': diff_path})
+                      context={'datasets': json_detail['dataset_details'],
+                               'diff_path': diff_path,
+                               'last_checked_on':json_detail['last_checked_on']})
 
 class DiffView(View):
     def get(self, request, filename):

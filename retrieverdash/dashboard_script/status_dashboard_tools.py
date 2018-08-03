@@ -132,13 +132,18 @@ def diff_generator(dataset, location=file_location):
         file_name = '{}_{}'.format(dataset.name.replace('-', '_'), keys)
         csv_file_name = '{}.csv'.format(file_name)
         html_file_name = '{}.html'.format(file_name)
-        if create_diff(os.path.join(location, 'old', csv_file_name),
+        if create_diff(os.path.join(location, 'old', dataset.name, csv_file_name),
                        os.path.join(location, 'current', csv_file_name),
                        os.path.join(location, 'diffs', html_file_name),
                        context=True, numlines=1):
             tables[keys] = html_file_name
-        move(os.path.join(location, 'current', csv_file_name),
-             os.path.join(location, 'old', csv_file_name))
+        try:
+            if not os.path.exists(os.path.join(location, 'old', dataset.name)):
+                os.makedirs(os.path.join(location, 'old', dataset.name))
+            move(os.path.join(location, 'current', csv_file_name),
+                 os.path.join(location, 'old', dataset.name, csv_file_name))
+        except IOError:
+            pass
         os.chdir(os.path.join(location))
     return tables
 
