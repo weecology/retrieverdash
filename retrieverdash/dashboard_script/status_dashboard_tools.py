@@ -20,6 +20,9 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
     Parameters
     ----------
     dataset : dataset script object
+    use_cache : True to use cached data or False to download again
+    debug: True to raise error or False to fail silently
+    location: path where temporary files are to be created for finding md5
 
     Returns
     -------

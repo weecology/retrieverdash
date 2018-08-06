@@ -15,7 +15,7 @@ body {
 }
 
 .header {
-    background-color: #59821e;
+    background-color: #16a085;
     text-align: center;
     font-size: 2.5em;
 }
@@ -35,12 +35,12 @@ body {
 
 .content {
     flex: 1;
-    background-color: #b4be60;
+    background-color: #1abc9c;
     color: #3a4144;
 }
 
 .footer {
-    background-color: #59821e;
+    background-color: #16a085;
     padding: 2%;
     text-align: center;
     width: 100%;
