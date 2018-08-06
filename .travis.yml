@@ -21,6 +21,7 @@ script:
   - python setup.py install
   - retriever ls
   - pytest -v
+  - python retrieverdash/manage.py test core.tests -v 2
 before_script:
   - sqlite3 --version
   - psql -c 'create database testdb;' -U postgres
