@@ -15,6 +15,7 @@ from .status_dashboard_tools import dataset_type
 
 file_location = os.path.dirname(os.path.realpath(__file__))
 
+IGNORE_LIST = ['prism-climate', 'mammal-super-tree']
 
 def check_dataset(dataset):
     os.chdir(os.path.join(file_location))
@@ -68,7 +69,8 @@ def check_dataset(dataset):
 
 def run():
     create_dirs()
-    for dataset in datasets():
+    datasets_to_check = [script for script in datasets() if script.name not in IGNORE_LIST]
+    for dataset in datasets_to_check:
         check_dataset(dataset)
 
 
