@@ -9,8 +9,8 @@ from retriever.engines import engine_list
 from retriever.lib.engine_tools import getmd5
 
 sqlite_engine = [eng for eng in engine_list if eng.name == 'SQLite'][0]
-file_location = os.path.dirname(os.path.realpath(__file__))
-temp_file_location = os.path.join(file_location, 'temp_files')
+file_location = os.path.normpath(os.path.dirname(os.path.realpath(__file__)))
+temp_file_location = os.path.normpath(os.path.join(file_location, 'temp_files'))
 
 example_datasets = ['bird-size', 'mammal-masses', 'airports', 'portal']
 
@@ -51,7 +51,7 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
         engine.opts = args
         engine.use_cache = False
         dataset.download(engine=engine, debug=True)
-        engine.to_csv()
+        engine.to_csv(sort=False)
         engine.final_cleanup()
         os.remove(os.path.join(workdir, db_name))
         current_md5 = getmd5(os.path.join(file_location, workdir), data_type='dir')
@@ -62,7 +62,6 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
     except Exception:
         raise
     finally:
-        os.chdir(location)
         if os.path.isfile(db_name):
             os.remove(db_name)
         rmtree(workdir)
@@ -114,14 +113,10 @@ def create_dirs(location=file_location):
     """
     Creates directories required for creating diffs.
     """
-    if not os.path.exists(os.path.join(location, 'temp_files')):
-        os.makedirs(os.path.join(location, 'temp_files'))
-    if not os.path.exists(os.path.join(location, 'old')):
-        os.makedirs(os.path.join(location, 'old'))
-    if not os.path.exists(os.path.join(location, 'current')):
-        os.makedirs(os.path.join(location, 'current'))
-    if not os.path.exists(os.path.join(location, 'diffs')):
-        os.makedirs(os.path.join(location, 'diffs'))
+    required_dirs = ['temp_files', 'old', 'current', 'diffs']
+    for dir_name in required_dirs:
+        if not os.path.exists(os.path.join(location, dir_name)):
+            os.makedirs(os.path.join(location, dir_name))
 
 
 def diff_generator(dataset, location=file_location):
@@ -147,7 +142,6 @@ def diff_generator(dataset, location=file_location):
                  os.path.join(location, 'old', dataset.name, csv_file_name))
         except IOError:
             pass
-        os.chdir(os.path.join(location))
     return tables
 
 

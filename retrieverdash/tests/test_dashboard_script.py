@@ -11,10 +11,10 @@ from retrieverdash.dashboard_script.status_dashboard_tools import diff_generator
 
 mysql_engine, postgres_engine, sqlite_engine, msaccess_engine, \
 csv_engine, download_engine, json_engine, xml_engine = engine_list
-file_location = os.path.dirname(os.path.realpath(__file__))
+file_location = os.path.normpath(os.path.dirname(os.path.realpath(__file__)))
 precalculated_md5 = '9f6c106f696451732fb763b3632bfd48'
 modified_dataset_path = "dataset/modified/Portal_rodents_19772002.csv"
-test_files_location = os.path.join(file_location, 'test_dir')
+test_files_location = os.path.normpath(os.path.join(file_location, 'test_dir'))
 
 
 def get_script_module(script_name):
