@@ -1,21 +1,25 @@
-==========================
-django-Retriever-Dashboard
-==========================
+.. Data Retriever Dashboard documentation master file, created by
+   sphinx-quickstart on Tue Aug  7 21:06:18 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
-The django-Retriever-Dashboard provides status 
+Welcome to Data Retriever Dashboard's documentation!
+====================================================
 
-
-Overview
-========
-
-The Data Retriever.
-
-
-
-Contents
-========
 
 .. toctree::
-    :maxdepth: 2
+   :maxdepth: 2
 
-    license
+   introduction.rst
+   script.rst
+   dashboard.rst
+
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
