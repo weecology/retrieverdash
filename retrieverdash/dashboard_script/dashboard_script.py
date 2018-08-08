@@ -17,7 +17,10 @@ from .status_dashboard_tools import dataset_type
 file_location = os.path.normpath(os.path.dirname(os.path.realpath(__file__)))
 
 IGNORE_LIST = ['prism-climate', 'mammal-super-tree', 'forest-inventory-analysis',
-               'vertnet']
+               'biotime', 'predicts', 'breed-bird-survey', 'predicts', 'usgs-elevation',
+               'vertnet', 'vertnet-amphibians', 'vertnet-birds', 'vertnet-fishes',
+               'vertnet-mammals', 'vertnet-reptiles', 'NPN'
+               ]
 
 
 def check_dataset(dataset):

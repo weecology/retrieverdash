@@ -49,8 +49,8 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
             'table_name': '{db}_{table}'
         }
         engine.opts = args
-        engine.use_cache = False
-        dataset.download(engine=engine, debug=True)
+        engine.use_cache = use_cache
+        dataset.download(engine=engine, debug=debug)
         engine.to_csv(sort=False)
         engine.final_cleanup()
         os.remove(os.path.join(workdir, db_name))
