@@ -6,6 +6,7 @@ from tempfile import mkdtemp
 
 from retriever import datasets
 from retriever.engines import engine_list
+from retriever.lib.defaults import HOME_DIR
 from retriever.lib.engine_tools import getmd5
 
 sqlite_engine = [eng for eng in engine_list if eng.name == 'SQLite'][0]
@@ -64,6 +65,8 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
     finally:
         if os.path.isfile(db_name):
             os.remove(db_name)
+        if os.path.exists(os.path.join(HOME_DIR,'raw_data',dataset.name)):
+            rmtree(os.path.join(HOME_DIR,'raw_data',dataset.name))
         rmtree(workdir)
     return current_md5
 
