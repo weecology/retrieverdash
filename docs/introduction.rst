@@ -8,7 +8,7 @@ An automated testing tool and dashboard for datasets available through Data Retr
 
 This django project serves as a status server and dashboard where maintainers and users can see
 the status of datasets i.e. whether the datasets are installing properly or not and the changes
-that have been made to the dataset.
+that have been made to the dataset.....
 
 
 Features of Data Retriever Dashboard
@@ -24,7 +24,7 @@ Running the dashboard locally
 
 **Required packages**
 
-To run Data Retriever Dashboard locally from source, you’ll need Python 3.3+
+To run Data Retriever Dashboard locally from source, you’ll need Python 3.4+
 with the following packages installed:
 
 -  django
