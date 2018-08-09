@@ -16,7 +16,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.realpath(__file__), os.pardir, os.pardir)))
-print(os.path.abspath(os.path.join(os.path.realpath(__file__), os.pardir, os.pardir)))
+
 # -- Project information -----------------------------------------------------
 
 project = 'Data Retriever Dashboard'
@@ -71,7 +71,7 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'agogo'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
