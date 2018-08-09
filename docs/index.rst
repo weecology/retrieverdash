@@ -13,7 +13,7 @@ Welcome to Data Retriever Dashboard's documentation!
    introduction.rst
    script.rst
    dashboard.rst
-
+   license.rst
 
 
 

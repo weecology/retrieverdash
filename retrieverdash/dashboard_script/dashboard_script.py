@@ -9,10 +9,10 @@ from retriever import datasets
 from retriever import download
 from retriever.lib.engine_tools import getmd5
 
-from status_dashboard_tools import get_dataset_md5
-from status_dashboard_tools import diff_generator
-from status_dashboard_tools import create_dirs
-from status_dashboard_tools import dataset_type
+from .status_dashboard_tools import get_dataset_md5
+from .status_dashboard_tools import diff_generator
+from .status_dashboard_tools import create_dirs
+from .status_dashboard_tools import dataset_type
 
 file_location = os.path.dirname(os.path.realpath(__file__))
 
