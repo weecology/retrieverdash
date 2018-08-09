@@ -42,6 +42,13 @@ with the following packages installed:
 4. ``python manage.py runserver`` to start the server for the dashboard.
 5. Open a browser and load the url 127.0.0.1:8000 . This is the dashboard.
 
+**Note**
+
+Initially you won't see anything on the dashboard because the script has been set to run on every Sunday at 12:00 AM.
+To run it immediately go to the directory where manage.py is and run the command ``python manage.py crontab show``.
+Now copy the hash of the cron from here. Now write the command ``python manage.py crontab run hash_of_the_cron``.
+Now the script will run immediately. Open another terminal and start the dashboard server.
+The dashboard will start displaying the details now.
 
 Acknowledgments
 ~~~~~~~~~~~~~~~

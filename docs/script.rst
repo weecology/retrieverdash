@@ -12,9 +12,14 @@ Functions in dashboard_script.py
 .. automodule:: retrieverdash.dashboard_script.dashboard_script
    :members:
 
+
 Functions in status_dashboard_tools.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. automodule:: retrieverdash.dashboard_script.status_dashboard_tools
    :members:
-
+   :exclude-members: create_dirs, get_dataset_md5, diff_generator, create_json
+.. autofunction:: create_dirs(location)
+.. autofunction:: get_dataset_md5(dataset, use_cache, debug, location)
+.. autofunction:: diff_generator(dataset, location)
+.. autofunction:: create_json(path)
