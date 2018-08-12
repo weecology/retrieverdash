@@ -6,15 +6,17 @@ About
 =====
 The Data Retriever Dashboard is divided into two parts:
 
-1. The Script
+1. The Helper Script
 2. The Dashboard
 
-**The Script**
-The script(dashboard_script.py in retrieverdash/retrieverdash/dashboard_script/ directory) is run on every Sunday at 12:00 AM using cron job. It generates a
-dataset_details.json file containing the details of the datasets and the diff files(html files showing
-side by side difference in the tables of a dataset if a change has been made to dataset).
+**The Helper Script**
+
+The script(dashboard_script.py in retrieverdash/retrieverdash/dashboard_script/ directory) is run regularly based on the cron job specification. It generates a
+dataset_details.json file containing the details of the datasets and the diff files(html files showing side by side diffs in the tables of a dataset if there is any
+change).
 
 **The Dashboard**
+
 The dashboard provides an interface where maintainers and users can see the details of datasets(whether it is
 installing successfully or not using retriever and the diffs).
 
@@ -22,23 +24,31 @@ Setting up locally
 ==================
 
 Before starting to make contributions to Data Retriever Dashboard you first have to set it up
-locally on your machine. You’ll need Python 3.4+.
+locally on your machine. You’ll need Python 3.4+. You have to run the script first so that you
+get the details of datasets generated to show on the dashboard.
 
 **Steps to run Data Retriever Dashboard locally:**
 
 1. Clone the repository.
 2. From the directory containing manage.py, run the following command:
    ``pip install -r requirements.txt`` to install the requirements for the dashboard.
+
+   `To set up the dashboard and attach a cron job:`
+
 3. ``python manage.py makemigrations`` to make migrations.
 4. ``python manage.py migrate`` to migrate.
 5. ``python manage.py crontab add`` to add the cron job for running the script
-   that would check the installation of datasets. To run the cron for script immediately
-   write the command ``python manage.py crontab show``. Copy the hash for cron job.
-   Then write ``python manage.py crontab run hash_of_the_cron_job``. The script will start running
+   that would check the installation of datasets.
+
+   `To setup the dashboard and start running the job regardless of the set cron configuration:`
+
+6. To run the cron for script immediately write the command ``python manage.py crontab show``.
+   Copy the hash for cron job. Then write ``python manage.py crontab run hash_of_the_cron_job``. The script will start running
    immediately.
-6. Wait for the script to complete checking all datasets or open another terminal and go to directory
+7. Wait for the script to complete checking all datasets or open another terminal and go to directory
    where manage.py is and write ``python manage.py runserver`` to start the server for the dashboard.
-7. Open a browser and load the url 127.0.0.1:8000 . This is the dashboard.
+   The default url is ``127.0.0.1:8000``. For using another port write ``python manage.py runserver port_number``.
+8. Open a browser and load the url that was provided when you run ``python manage.py runserver`` . This is the dashboard.
 
 
 Style Guide for Python Code
