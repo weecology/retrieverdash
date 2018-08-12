@@ -20,8 +20,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.realpath(__file__), os.p
 # -- Project information -----------------------------------------------------
 
 project = 'Data Retriever Dashboard'
-copyright = '2018, Ethan White, Henry Senyondo, Apoorva Pandey, Andrew Zhang'
-author = 'Ethan White, Henry Senyondo, Apoorva Pandey, Andrew Zhang'
+copyright = '2018 Weecology University of Florida'
+author = 'Ethan White, Henry Senyondo, Andrew Zhang, Apoorva Pandey'
 
 # The short X.Y version
 version = ''
@@ -125,7 +125,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'DataRetrieverDashboard.tex', 'Data Retriever Dashboard Documentation',
-     'Ethan White, Henry Senyondo, Apoorva Pandey, Andrew Zhang', 'manual'),
+     'Ethan White, Henry Senyondo, Andrew Zhang, Apoorva Pandey', 'manual'),
 ]
 
 # -- Options for manual page output ------------------------------------------
