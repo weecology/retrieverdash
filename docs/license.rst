@@ -2,7 +2,7 @@
 License
 =======
 
-The django-Retriever-Dashboard package is distributed under the `MIT License`_.
+The Data Retriever Dashboard is distributed under the `MIT License`_.
 The complete license term are included below.  The copyright of the
 integration code snippets of individual services rest solely with the
 respective service providers.
