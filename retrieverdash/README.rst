@@ -24,7 +24,7 @@ Version:
     0.0
 
 Django Version:
-    1.11
+    2.0.0
 
 
 
@@ -32,5 +32,4 @@ Django Version:
 Retriever Home
 --------------
 
-You can see the documentation for the Data Retriever <http://www.data-retriever.org/>`_ at **Read the Docs**: `Data Retriever Docs
-<https://retriever.readthedocs.io/en/latest/>`_
+You can see the documentation for the `Data Retriever <http://www.data-retriever.org/>`_ at **Read the Docs**: `Data Retriever Docs <https://retriever.readthedocs.io/en/latest/>`_
