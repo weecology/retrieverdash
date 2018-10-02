@@ -139,7 +139,7 @@ Example::
   Skip a line and add more explanation if needed
   fixes #3
 
-**Clean histroy**
+**Clean history**
 
 We try to make one commit for each issue.
 As you work on an issue, try adding all the commits into one general commit rather than several commits.
