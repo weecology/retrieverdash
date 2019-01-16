@@ -8,7 +8,7 @@
         <table id="datasetTable">
             <tr>
                 <th>Dataset</th>
-                <th>Status</th>
+                <th>Status({{last_checked_on}})</th>
                 <th>Diff of tables</th>
             </tr>
             {% for dataset, detail in datasets.items|dictsort:"0.lower" %}
