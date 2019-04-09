@@ -3,7 +3,7 @@ python:
   - 3.5
 
 env:
-  - DJANGO=2.0
+  - DJANGO=2.0.10
 
 addons:
   postgresql: "9.4"
