@@ -29,7 +29,8 @@ def test_status_dashboard():
         os.makedirs(os.path.join(file_location, 'test_dir', 'old', 'sample-dataset'))
     os.chdir(os.path.join(test_files_location, 'old', 'sample-dataset'))
     script_module = get_script_module('sample_dataset')
-    sqlite_engine.opts = {'install': 'sqlite', 'file': 'test_db.sqlite3', 'table_name': '{db}_{table}'}
+    sqlite_engine.opts = {'install': 'sqlite', 'file': 'test_db.sqlite3', 'table_name': '{db}_{table}',
+                          'data_dir': '.'}
     sqlite_engine.use_cache = False
     script_module.download(engine=sqlite_engine)
     script_module.engine.final_cleanup()
@@ -52,7 +53,8 @@ def test_status_dashboard():
     # md5 we have to find the diff
     if calculated_md5 != precalculated_md5:
         os.chdir(os.path.join(test_files_location, 'current'))
-        sqlite_engine.opts = {'install': 'sqlite', 'file': 'test_db_new.sqlite3', 'table_name': '{db}_{table}'}
+        sqlite_engine.opts = {'install': 'sqlite', 'file': 'test_db_new.sqlite3', 'table_name': '{db}_{table}',
+                              'data_dir': '.'}
         sqlite_engine.use_cache = False
         script_module.download(sqlite_engine)
         script_module.engine.final_cleanup()
