@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 from shutil import rmtree
 from tempfile import mkdtemp
 
-from retriever import datasets
+from retriever import reload_scripts, dataset_names
 from retriever import download
 from retriever.lib.engine_tools import getmd5
 
@@ -22,6 +22,14 @@ IGNORE_LIST = ['prism-climate', 'mammal-super-tree', 'forest-inventory-analysis'
                'vertnet-mammals', 'vertnet-reptiles', 'NPN'
                ]
 
+TEST_ONLY = ["iris",
+              "mammal-masses",
+             "wine-composition", "wine-quality"]
+
+
+NEW_IGNORE = list(set(dataset_names()['online'] + dataset_names()['offline']) - set(TEST_ONLY))
+
+IGNORE_LIST = IGNORE_LIST + NEW_IGNORE
 
 def check_dataset(dataset):
     md5 = None
@@ -73,7 +81,7 @@ def check_dataset(dataset):
 
 def run():
     create_dirs()
-    datasets_to_check = [script for script in datasets() if
+    datasets_to_check = [script for script in reload_scripts() if
                          script.name not in IGNORE_LIST]
     for dataset in datasets_to_check:
         check_dataset(dataset)
