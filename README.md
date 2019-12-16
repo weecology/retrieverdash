@@ -1,6 +1,11 @@
 [![Build Status](https://travis-ci.org/weecology/retrieverdash.svg?branch=master)](https://travis-ci.org/weecology/retrieverdash)
 [![Documentation Status](https://readthedocs.org/projects/retrieverdash/badge/?version=latest)](https://retrieverdash.readthedocs.io/?badge=latest)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/weecology/retriever/master/LICENSE)
+<a href="https://numfocus.org/sponsored-projects">
+<img alt="NumFOCUS"
+   src="https://i0.wp.com/numfocus.org/wp-content/uploads/2019/06/AffiliatedProject.png" width="100" height="18">
+</a>
+
 # retriever-dashboard
 
 This django project serves as a status server and dashboard where maintainers and users can see the status of datasets available
