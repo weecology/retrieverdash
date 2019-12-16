@@ -6,9 +6,11 @@ Introduction
 An automated testing tool and dashboard for datasets available through Data Retriever
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This django project serves as a status server and dashboard where maintainers and users can see
-the status of datasets i.e. whether the datasets are installing properly or not and the changes
-that have been made to the dataset.
+This django project serves as a status server and dashboard for  the `Retriever recipes`_ from the `Data Retriever`_ platform.
+The information about each data package recipe can be found in the `Data Retriever recipe`_'s docs`
+Maintainers and users can check the status of datasets packages(retriever-recipes) i.e. whether the datasets are installing properly or not and the changes
+that have been made to these datasets. Check out the `retrieverdash source code`_
+
 
 The dashboard
 ~~~~~~~~~~~~~
@@ -60,3 +62,9 @@ Acknowledgments
 ~~~~~~~~~~~~~~~
 
 This project was developed by Apoorva Pandey as part of Google Summer of Code 2018.
+
+
+.. _Data Retriever recipe: https://retriever.readthedocs.io/en/latest/datasets_list.html
+.. _Retriever recipes: https://github.com/weecology/retriever-recipes
+.. _Data Retriever: http://data-retriever.org
+.. _retrieverdash source code: https://github.com/weecology/retrieverdash
