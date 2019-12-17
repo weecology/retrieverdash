@@ -31,7 +31,7 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
 
     Example
     -------
-    >>> for dataset in datasets():
+    >>> for dataset in reload_scripts():
     ...     if dataset.name=='aquatic-animal-excretion':
     ...         print(get_dataset_md5(dataset))
     ...
@@ -47,7 +47,8 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
             'command': 'install',
             'dataset': dataset,
             'file': os.path.join(workdir, db_name),
-            'table_name': '{db}_{table}'
+            'table_name': '{db}_{table}',
+            'data_dir': '.'
         }
         engine.opts = args
         engine.use_cache = use_cache
