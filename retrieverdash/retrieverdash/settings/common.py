@@ -142,5 +142,10 @@ except IOError:
         raise Exception('Could not open %s for writing!' % SECRET_FILE)
 
 CRONJOBS = [
+    # Minutes - set the minutes, from 0-59
+    # Hours - set the hour, from 0-24
+    # Days - set the day, from 1-31
+    # Months - set the month, from 1-12 (January - December)
+    # Week - set the day of the week, from 0-6 (Sunday - Saturday)
     ('0 0 * * 0', 'dashboard_script.dashboard_script.run')
 ]
