@@ -22,14 +22,6 @@ IGNORE_LIST = ['prism-climate', 'mammal-super-tree', 'forest-inventory-analysis'
                'vertnet-mammals', 'vertnet-reptiles', 'NPN'
                ]
 
-TEST_ONLY = ["iris",
-              "mammal-masses",
-             "wine-composition", "wine-quality"]
-
-
-NEW_IGNORE = list(set(dataset_names()['online'] + dataset_names()['offline']) - set(TEST_ONLY))
-
-IGNORE_LIST = IGNORE_LIST + NEW_IGNORE
 
 def check_dataset(dataset):
     md5 = None
