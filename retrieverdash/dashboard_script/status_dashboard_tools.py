@@ -4,7 +4,7 @@ from difflib import HtmlDiff
 from shutil import rmtree, move
 from tempfile import mkdtemp
 
-from retriever import datasets
+from retriever import reload_scripts
 from retriever.engines import engine_list
 from retriever.lib.defaults import HOME_DIR
 from retriever.lib.engine_tools import getmd5
@@ -31,7 +31,7 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
 
     Example
     -------
-    >>> for dataset in datasets():
+    >>> for dataset in reload_scripts():
     ...     if dataset.name=='aquatic-animal-excretion':
     ...         print(get_dataset_md5(dataset))
     ...
@@ -47,7 +47,8 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
             'command': 'install',
             'dataset': dataset,
             'file': os.path.join(workdir, db_name),
-            'table_name': '{db}_{table}'
+            'table_name': '{db}_{table}',
+            'data_dir': '.'
         }
         engine.opts = args
         engine.use_cache = use_cache
@@ -154,7 +155,7 @@ def create_json(path="dataset_details.json"):
     of all(currently those in example_datasets) datasets.
     """
     data = {}
-    for dataset in datasets():
+    for dataset in reload_scripts():
         if dataset.name in example_datasets:
             data[dataset.name] = {"md5": get_dataset_md5(dataset)}
         with open(path, 'w') as json_file:
@@ -173,7 +174,7 @@ def dataset_type(dataset):
 
     Example
     -------
-    >>> for dataset in datasets():
+    >>> for dataset in reload_scripts():
     ...     if dataset.name=='aquatic-animal-excretion':
     ...         print(dataset_type(dataset))
     ...
