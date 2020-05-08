@@ -68,8 +68,8 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
     finally:
         if os.path.isfile(db_name):
             os.remove(db_name)
-        if os.path.exists(os.path.join(HOME_DIR,'raw_data',dataset.name)):
-            rmtree(os.path.join(HOME_DIR,'raw_data',dataset.name))
+        if os.path.exists(os.path.join(HOME_DIR, 'raw_data', dataset.name)):
+            rmtree(os.path.join(HOME_DIR, 'raw_data', dataset.name))
         rmtree(workdir)
     return current_md5
 
