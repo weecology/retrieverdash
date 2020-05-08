@@ -56,7 +56,9 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
         engine.to_csv(sort=False)
         engine.final_cleanup()
         os.remove(os.path.join(workdir, db_name))
-        current_md5 = getmd5(os.path.join(file_location, workdir), data_type='dir')
+        current_md5 = getmd5(os.path.join(file_location, workdir),
+                             data_type='dir',
+                             encoding=dataset.encoding)
         if os.path.exists(os.path.join(file_location, 'current')):
             for file in os.listdir(workdir):
                 move(os.path.join(workdir, file),
@@ -66,8 +68,8 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
     finally:
         if os.path.isfile(db_name):
             os.remove(db_name)
-        if os.path.exists(os.path.join(HOME_DIR,'raw_data',dataset.name)):
-            rmtree(os.path.join(HOME_DIR,'raw_data',dataset.name))
+        if os.path.exists(os.path.join(HOME_DIR, 'raw_data', dataset.name)):
+            rmtree(os.path.join(HOME_DIR, 'raw_data', dataset.name))
         rmtree(workdir)
     return current_md5
 
