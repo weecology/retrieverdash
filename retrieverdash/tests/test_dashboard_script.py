@@ -9,8 +9,7 @@ from retriever.lib.engine_tools import getmd5
 from retrieverdash.dashboard_script.status_dashboard_tools import create_dirs
 from retrieverdash.dashboard_script.status_dashboard_tools import diff_generator
 
-mysql_engine, postgres_engine, sqlite_engine, msaccess_engine, \
-csv_engine, download_engine, json_engine, xml_engine = engine_list
+mysql_engine, postgres_engine, sqlite_engine, *_ = engine_list
 file_location = os.path.normpath(os.path.dirname(os.path.realpath(__file__)))
 precalculated_md5 = '9f6c106f696451732fb763b3632bfd48'
 modified_dataset_path = "dataset/modified/Portal_rodents_19772002.csv"
