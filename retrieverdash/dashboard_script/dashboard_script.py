@@ -43,8 +43,6 @@ def check_dataset(dataset):
                 workdir = mkdtemp(dir=file_location)
                 download(dataset.name, path=workdir)
                 md5 = getmd5(workdir, data_type='dir')
-            except Exception:
-                raise
             finally:
                 if workdir:
                     rmtree(workdir)

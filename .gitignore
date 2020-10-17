@@ -103,3 +103,10 @@ ENV/
 *.idea*
 *_pycache_*
 *.DS_Store*
+
+# dashboard_script files
+dataset_details.json
+temp_files/
+old/
+current/
+diffs/
