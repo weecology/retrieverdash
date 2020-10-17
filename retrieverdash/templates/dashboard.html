@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load static %}
 {% block content %}
 {% include 'header.html' %}
 <div class="content">
@@ -8,20 +8,20 @@
         <table id="datasetTable">
             <tr>
                 <th>Dataset</th>
-                <th>Status({{last_checked_on}})</th>
+                <th>Status({{ last_checked_on }})</th>
                 <th>Diff of tables</th>
             </tr>
             {% for dataset, detail in datasets.items|dictsort:"0.lower" %}
             <tr>
-                <td>{{dataset}}</td>
-                {% ifequal detail.status False%}
+                <td>{{ dataset }}</td>
+                {% if not detail.status %}
                 <td>Failing</td>
                 {% else %}
                 <td>Installing</td>
-                {% endifequal %}
+                {% endif %}
                 <td>
                     <table>{% for table_name, file_name in detail.diff.items|dictsort:"0.lower" %}
-                        <tr><a href="{% url 'core:diff' file_name %}" target="_blank">{{table_name}}</a></tr>
+                        <tr><a href="{% url 'core:diff' file_name %}" target="_blank">{{ table_name }}</a></tr>
                         <br>
                         {% endfor %}
                     </table>
@@ -34,5 +34,3 @@
 {% include 'footer.html' %}
 <script src="{% static 'js/search-dataset.js' %}"></script>
 {% endblock %}
-
-

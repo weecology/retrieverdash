@@ -63,8 +63,6 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
             for file in os.listdir(workdir):
                 move(os.path.join(workdir, file),
                      os.path.join(file_location, 'current'))
-    except Exception:
-        raise
     finally:
         if os.path.isfile(db_name):
             os.remove(db_name)
