@@ -22,7 +22,7 @@ pytest-django==4.0.0
 python-dateutil==2.8.1
 pytz==2017.3
 requests==2.24.0
-retriever==3.0.1.dev0
+retriever
 six==1.15.0
 sqlparse==0.4.1
 toml==0.10.1
