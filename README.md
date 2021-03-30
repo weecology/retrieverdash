@@ -20,11 +20,13 @@ Steps to run the dashboard from source
 --------------------------------------
 
 1. Clone the repository.
-2. From the directory containing manage.py, run the following command:
-   `pip install -r requirements.txt` to install the requirements for the dashboard.
-3. `python manage.py crontab add` to add the cron job for running the script that would check the installation of datasets.
-4. `python manage.py runserver` to start the server for the dashboard.
-5. Open a browser and load the url 127.0.0.1:8000 . This is the dashboard.
+2. Install dependencies. There are two options for doing this:
+   1. Using `pip`: from the `retrieverdash` directory (containing `manage.py`) run `pip install -r requirements.txt`
+   2. Using `conda`: from the root directory of the repository (containing `environment.yml`) run `conda env create -f environment.yml` and then `conda activate retrieverdash`
+3. Ensure that you are in the `retrieverdash` directory (containing `manage.py`)
+4. `python manage.py crontab add` to add the cron job for running the script that would check the installation of datasets.
+5. `python manage.py runserver` to start the server for the dashboard.
+6. Open a browser and load the url 127.0.0.1:8000 . This is the dashboard.
 
 **Note**
 
