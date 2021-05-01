@@ -64,10 +64,10 @@ def check_dataset(dataset):
                   sort_keys=True, indent=4)
         dataset_details_write.close()
 
-#In line number 114
-#Insted of "not in" operator we are using "in" operator which
-#Checks for dataset names from IGNORE_LIST that have to be downloaded
-#Insted of checking for dataset names that we don't have to download  
+
+# Insted of "not in" operator we are using "in" operator which
+# Checks for dataset names from IGNORE_LIST that have to be downloaded
+# Insted of checking for dataset names that we don't have to download  
 def run():
     create_dirs()
     datasets_to_check = [script for script in reload_scripts() if
