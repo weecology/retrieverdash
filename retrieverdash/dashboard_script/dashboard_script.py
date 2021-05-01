@@ -16,12 +16,8 @@ from .status_dashboard_tools import dataset_type
 
 file_location = os.path.normpath(os.path.dirname(os.path.realpath(__file__)))
 
-IGNORE_LIST = ['prism-climate', 'mammal-super-tree', 'forest-inventory-analysis',
-               'biotime', 'predicts', 'breed-bird-survey', 'predicts', 'usgs-elevation',
-               'vertnet', 'vertnet-amphibians', 'vertnet-birds', 'vertnet-fishes',
-               'vertnet-mammals', 'vertnet-reptiles', 'NPN'
-               ]
-
+#Add name of dataset which has to be downloaded 	 	
+IGNORE_LIST = ['abalone-age'] 
 
 def check_dataset(dataset):
     md5 = None
@@ -68,11 +64,14 @@ def check_dataset(dataset):
                   sort_keys=True, indent=4)
         dataset_details_write.close()
 
-
+#In line number 114
+#Insted of "not in" operator we are using "in" operator which
+#Checks for dataset names from IGNORE_LIST that have to be downloaded
+#Insted of checking for dataset names that we don't have to download  
 def run():
     create_dirs()
     datasets_to_check = [script for script in reload_scripts() if
-                         script.name not in IGNORE_LIST]
+                         script.name in IGNORE_LIST]
     for dataset in datasets_to_check:
         check_dataset(dataset)
 
