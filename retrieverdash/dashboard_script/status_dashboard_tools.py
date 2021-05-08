@@ -11,7 +11,8 @@ from retriever.lib.engine_tools import getmd5
 
 sqlite_engine = [eng for eng in engine_list if eng.name == 'SQLite'][0]
 file_location = os.path.normpath(os.path.dirname(os.path.realpath(__file__)))
-temp_file_location = os.path.normpath(os.path.join(file_location, 'temp_files'))
+temp_file_location = os.path.normpath(
+    os.path.join(file_location, 'temp_files'))
 
 example_datasets = ['bird-size', 'mammal-masses', 'airports', 'portal']
 
@@ -185,3 +186,37 @@ def dataset_type(dataset):
                 ["RasterDataset", "VectorDataset"]:
             return "spatial"
     return "tabular"
+
+
+# Add the install postgres functions here that will be used to install the dataset to PostgreSQL
+# def install_postgres(dataset):
+#     # Function to install the dataset in postgres form into the database.
+#     # Uses the retriever postgres engine.
+#     '''
+#      required_opts = [
+#         ("user", "Enter your PostgreSQL username", "postgres"),
+#         ("password", "Enter your password", ""),
+#         ("host", "Enter your PostgreSQL host", "localhost"),
+#         ("port", "Enter your PostgreSQL port", 5432),
+#         I'm hoping the above 3 will automatically get installed by
+#         ("database", "Enter your PostgreSQL database name", "postgres"),
+#         ("database_name", "Format of schema name", "{db}"),
+#         ("table_name", "Format of table name", "{db}.{table}"),
+#     ]
+#     '''
+#     # database_name = "{}".format(dataset.name)
+#     args = {
+#         "command": 'install',
+#         "dataset": dataset,
+#         "database_name": dataset.name
+#     }
+#     test_engine = rt.engines.postgres.engine()
+#     test_engine.opts = args
+#     dataset.download(engine=test_engine, debug=True)
+
+#     folder_save_location = os.path.normpath(
+#         os.path.join(new_store_path, dataset.name))
+#     if not os.path.exists(folder_save_location):
+#         os.makedirs(folder_save_location)
+#     test_engine.to_csv(path=folder_save_location)
+#     test_engine.final_cleanup()
