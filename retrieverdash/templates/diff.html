@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'header.html' %}
+<div class="content">
+    <div class="tableContainer">
+        <h1>{{dataset}}</h1>
+        <table id="datasetTable">
+          <tr>
+          <th>Diffs</th>
+          </tr>
+          {% for table_name, file_name in dataset_details.diff.items|dictsort:"0.lower" %}
+          <tr>
+            <td><a href="{% url 'core:diff' file_name %}" target="_blank">{{ table_name }}</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+    </div>
+</div>
+{% include 'footer.html' %}
+{% endblock %}
