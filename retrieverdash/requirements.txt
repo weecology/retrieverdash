@@ -6,7 +6,7 @@ chardet==3.0.4
 Django==3.1.12
 django-crontab==0.7.1
 future==0.18.2
-h5py==2.10.0
+h5py
 idna==2.10
 importlib-metadata==2.0.0
 iniconfig==1.1.1
