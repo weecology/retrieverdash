@@ -43,7 +43,7 @@ get the details of datasets generated to show on the dashboard.
    `To setup the dashboard and start running the job regardless of the set cron configuration:`
 
 6. If this is the first time you are running retriever on your computer, run ``retriever ls`` once the environment is setup. 
-7. If you are using a dev environment, type the command ``export RETR_TEST=true``
+7. For developers on a local machine, run ``export RETR_TEST=true`` to switch to local testing mode.
 8. To run the cron for script immediately write the command ``python manage.py crontab show``.
    Copy the hash for cron job. Then write ``python manage.py crontab run hash_of_the_cron_job``. The script will start running
    immediately.

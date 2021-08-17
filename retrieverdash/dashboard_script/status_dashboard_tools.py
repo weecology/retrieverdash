@@ -195,15 +195,16 @@ def install_postgres(dataset):
     """
     Install dataset into local instance of the postgres
     required_opts = [
-        ("user", "Enter your PostgreSQL username", "postgres"),
-        ("password", "Enter your password", ""),
-        ("host", "Enter your PostgreSQL host", "localhost"),
-        ("port", "Enter your PostgreSQL port", 5432),
-        ("database", "Enter your PostgreSQL database name", "postgres"),
-        ("database_name", "Format of schema name", "{db}"),
-        ("table_name", "Format of table name", "{db}.{table}"),
+    ("user", "Enter your PostgreSQL username", "postgres"),
+    ("password", "Enter your password", ""),
+    ("host", "Enter your PostgreSQL host", "localhost"),
+    ("port", "Enter your PostgreSQL port", 5432),
+    ("database", "Enter your PostgreSQL database name", "postgres"),
+    ("database_name", "Format of schema name", "{db}"),
+    ("table_name", "Format of table name", "{db}.{table}"),
     ]
     """
+
     args = {
         "user": 'retrieverdash',
         "password": "Password12!",
@@ -258,14 +259,14 @@ def diff_generator_spatial(dataset, location=file_location):
 
 
 def data_shift(dataset, is_spatial=False):
-    '''
-    Is responsible for shifting data from the current directory to the old directory.
-    '''
+    """
+    Shift data from the current directory to the old directory
+    """
     for keys in dataset.tables:
         file_name = '{}_{}'.format(
             dataset.name.replace('-', '_'), keys)
 
-        if is_spatial == True:
+        if is_spatial:
             file_name = '{}.{}'.format(dataset.name.replace('-', '_'), keys)
         csv_file_name = '{}.csv'.format(file_name)
         try:
