@@ -32,12 +32,6 @@ while decrement:
         maxInt = int(maxInt / 10)
 
 
-IGNORE_LIST = ['activity-timberharvest', 'prism-climate', 'mammal-super-tree', 'forest-inventory-analysis',
-               'biotime', 'predicts', 'breed-bird-survey', 'predicts', 'usgs-elevation',
-               'vertnet', 'vertnet-amphibians', 'vertnet-birds', 'vertnet-fishes',
-               'vertnet-mammals', 'vertnet-reptiles', 'NPN'
-               ]
-
 # The DEV_LIST, useful for testing on less strong machines.
 DEV_LIST = ['iris', 'poker-hands', 'harvard-forest']
 
