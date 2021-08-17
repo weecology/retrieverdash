@@ -1,17 +1,18 @@
 import json
 import os
 from difflib import HtmlDiff
-from shutil import rmtree, move
+from shutil import rmtree, move, copytree
 from tempfile import mkdtemp
 
 from retriever import reload_scripts
-from retriever.engines import engine_list
+from retriever.engines import engine_list, postgres
 from retriever.lib.defaults import HOME_DIR
 from retriever.lib.engine_tools import getmd5
 
 sqlite_engine = [eng for eng in engine_list if eng.name == 'SQLite'][0]
 file_location = os.path.normpath(os.path.dirname(os.path.realpath(__file__)))
-temp_file_location = os.path.normpath(os.path.join(file_location, 'temp_files'))
+temp_file_location = os.path.normpath(
+    os.path.join(file_location, 'temp_files'))
 
 example_datasets = ['bird-size', 'mammal-masses', 'airports', 'portal']
 
@@ -59,15 +60,17 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
         current_md5 = getmd5(os.path.join(file_location, workdir),
                              data_type='dir',
                              encoding=dataset.encoding)
-        if os.path.exists(os.path.join(file_location, 'current')):
-            for file in os.listdir(workdir):
-                move(os.path.join(workdir, file),
-                     os.path.join(file_location, 'current'))
+        if not os.path.exists(os.path.join(file_location, 'current', dataset.name)):
+            os.makedirs(os.path.join(file_location, 'current', dataset.name))
+        for file in os.listdir(workdir):
+            move(os.path.join(workdir, file),
+                 os.path.join(file_location,  'current', dataset.name))
     finally:
         if os.path.isfile(db_name):
             os.remove(db_name)
         if os.path.exists(os.path.join(HOME_DIR, 'raw_data', dataset.name)):
             rmtree(os.path.join(HOME_DIR, 'raw_data', dataset.name))
+        os.chdir(os.path.dirname(file_location))
         rmtree(workdir)
     return current_md5
 
@@ -135,14 +138,15 @@ def diff_generator(dataset, location=file_location):
         csv_file_name = '{}.csv'.format(file_name)
         html_file_name = '{}.html'.format(file_name)
         if create_diff(os.path.join(location, 'old', dataset.name, csv_file_name),
-                       os.path.join(location, 'current', csv_file_name),
+                       os.path.join(location, 'current',
+                                    dataset.name, csv_file_name),
                        os.path.join(location, 'diffs', html_file_name),
                        context=True, numlines=1):
             tables[keys] = html_file_name
         try:
             if not os.path.exists(os.path.join(location, 'old', dataset.name)):
                 os.makedirs(os.path.join(location, 'old', dataset.name))
-            move(os.path.join(location, 'current', csv_file_name),
+            move(os.path.join(location, 'current', dataset.name, csv_file_name),
                  os.path.join(location, 'old', dataset.name, csv_file_name))
         except IOError:
             pass
@@ -185,3 +189,91 @@ def dataset_type(dataset):
                 ["RasterDataset", "VectorDataset"]:
             return "spatial"
     return "tabular"
+
+
+def install_postgres(dataset):
+    """
+    Install dataset into local instance of the postgres
+    required_opts = [
+    ("user", "Enter your PostgreSQL username", "postgres"),
+    ("password", "Enter your password", ""),
+    ("host", "Enter your PostgreSQL host", "localhost"),
+    ("port", "Enter your PostgreSQL port", 5432),
+    ("database", "Enter your PostgreSQL database name", "postgres"),
+    ("database_name", "Format of schema name", "{db}"),
+    ("table_name", "Format of table name", "{db}.{table}"),
+    ]
+    """
+
+    args = {
+        "user": 'retrieverdash',
+        "password": "Password12!",
+        "host": "localhost",
+        "port": 5432,
+        "command": 'install',
+        "database": "retrieverdash",
+        "dataset": dataset,
+        "database_name": "{db}",
+        "table_name": "{db}.{table}",
+    }
+    test_engine = postgres.engine()
+    test_engine.opts = args
+    dataset.download(engine=test_engine, debug=True)
+
+    folder_save_location = os.path.normpath(
+        os.path.join(file_location, 'current', dataset.name))
+    if not os.path.exists(folder_save_location):
+        os.makedirs(folder_save_location)
+    test_engine.to_csv(path=folder_save_location)
+    test_engine.final_cleanup()
+
+    if os.path.exists(os.path.join(HOME_DIR, 'raw_data', dataset.name)):
+        rmtree(os.path.join(HOME_DIR, 'raw_data', dataset.name))
+
+
+def diff_generator_spatial(dataset, location=file_location):
+    """
+    Generates the diff and moves file from
+    current directory to old directory. This function is specialized for spatial datasets because PostgreSQL has special rules for table naming.
+    """
+    tables = {}
+
+    for keys in dataset.tables:
+        file_name = '{}.{}'.format(dataset.name.replace('-', '_'), keys)
+        csv_file_name = '{}.csv'.format(file_name)
+        html_file_name = '{}.html'.format(file_name)
+        if create_diff(os.path.join(location, 'old', dataset.name, csv_file_name),
+                       os.path.join(location, 'current',
+                                    dataset.name, csv_file_name),
+                       os.path.join(location, 'diffs', html_file_name),
+                       context=True, numlines=1):
+            tables[keys] = html_file_name
+        try:
+            if not os.path.exists(os.path.join(location, 'old', dataset.name)):
+                os.makedirs(os.path.join(location, 'old', dataset.name))
+            move(os.path.join(location, 'current', dataset.name, csv_file_name),
+                 os.path.join(location, 'old', dataset.name, csv_file_name))
+        except IOError:
+            pass
+    return tables
+
+
+def data_shift(dataset, is_spatial=False):
+    """
+    Shift data from the current directory to the old directory
+    """
+    for keys in dataset.tables:
+        file_name = '{}_{}'.format(
+            dataset.name.replace('-', '_'), keys)
+
+        if is_spatial:
+            file_name = '{}.{}'.format(dataset.name.replace('-', '_'), keys)
+        csv_file_name = '{}.csv'.format(file_name)
+        try:
+            if not os.path.exists(os.path.join(file_location, 'old', dataset.name)):
+                os.makedirs(os.path.join(
+                    file_location, 'old', dataset.name))
+            move(os.path.join(file_location, 'current', dataset.name, csv_file_name),
+                 os.path.join(file_location, 'old', dataset.name, csv_file_name))
+        except IOError:
+            pass

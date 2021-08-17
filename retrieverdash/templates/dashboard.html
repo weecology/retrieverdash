@@ -20,11 +20,10 @@
                 <td>Installing</td>
                 {% endif %}
                 <td>
-                    <table>{% for table_name, file_name in detail.diff.items|dictsort:"0.lower" %}
-                        <tr><a href="{% url 'core:diff' file_name %}" target="_blank">{{ table_name }}</a></tr>
-                        <br>
-                        {% endfor %}
-                    </table>
+
+                    {% if   detail.diff %}
+                    <a href="/dataset/{{dataset}}" target="_blank">Diffs</a>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}

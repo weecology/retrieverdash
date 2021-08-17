@@ -42,13 +42,15 @@ get the details of datasets generated to show on the dashboard.
 
    `To setup the dashboard and start running the job regardless of the set cron configuration:`
 
-6. To run the cron for script immediately write the command ``python manage.py crontab show``.
+6. If this is the first time you are running retriever on your computer, run ``retriever ls`` once the environment is setup. 
+7. For developers on a local machine, run ``export RETR_TEST=true`` to switch to local testing mode.
+8. To run the cron for script immediately write the command ``python manage.py crontab show``.
    Copy the hash for cron job. Then write ``python manage.py crontab run hash_of_the_cron_job``. The script will start running
    immediately.
-7. Wait for the script to complete checking all datasets or open another terminal and go to directory
+9. Wait for the script to complete checking all datasets or open another terminal and go to directory
    where manage.py is and write ``python manage.py runserver`` to start the server for the dashboard.
    The default url is ``127.0.0.1:8000``. For using another port write ``python manage.py runserver port_number``.
-8. Open a browser and load the url that was provided when you run ``python manage.py runserver`` . This is the dashboard.
+10. Open a browser and load the url that was provided when you run ``python manage.py runserver`` . This is the dashboard.
 
 
 Style Guide for Python Code
@@ -147,3 +149,20 @@ As you work on an issue, try adding all the commits into one general commit rath
 Use ``git commit --amend`` to add new changes to a branch.
 
 Use ``-f`` flag to force pushing changes to the branch. ``git push -f origin [branch_name]``
+
+
+Working on the server
+=====================
+
+Data Retriever has a server that can be accessed with permission from the data retriever team.
+In order, to view the current dashboard that is running on the weecology server you will have to use the concept of port-forwarding. ``ssh -L 8000:localhost:8000 <user>@<server_domain>``
+
+tmux
+====
+On the server, you might also want to use tmux to keep the server running in the background. Usually, the tmux server is running with an instance name 0, just use:
+
+.. code-block:: bash
+
+  retrieverdash@<servername>:~$ tmux ls
+  <instance name>: 1 windows (created Tue Aug  3 12:54:48 2021) [158x40]
+  retrieverdash@<servername>:~$ tmux attach -t <instance name>

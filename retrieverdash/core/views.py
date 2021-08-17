@@ -20,7 +20,8 @@ class DashboardView(TemplateView):
         try:
             json_detail = json.load(open(file_path, 'r'))
         except IOError:
-            json_detail = dict({'dataset_details': None, 'last_checked_on': None})
+            json_detail = dict(
+                {'dataset_details': None, 'last_checked_on': None})
         context.update({
             'datasets': json_detail['dataset_details'],
             'last_checked_on': json_detail['last_checked_on']
@@ -31,3 +32,23 @@ class DashboardView(TemplateView):
 class DiffView(View):
     def get(self, request, filename):
         return HttpResponse(open(os.path.join(diff_path, filename)))
+
+
+class DataSetView(TemplateView):
+    template_name = "diff.html"
+
+    def get_context_data(self, dataset_name, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        try:
+            json_detail = json.load(open(file_path, 'r'))[
+                'dataset_details'][dataset_name]
+        except IOError:
+            json_detail = dict(
+                {"diff": None})
+        context.update({
+            'dataset': str(dataset_name).strip(),
+            'dataset_details': json_detail
+        })
+
+        return context
