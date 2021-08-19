@@ -5,6 +5,12 @@
 <div class="content">
     <div class="tableContainer">
         <input type="search" id="search" onkeyup="searchFunction()" placeholder="Search Dataset">
+        <br>
+        <br>
+        <label for="fail-only" class="fail-label">See only failing datasets</label>
+        <input type="checkbox" id="fail-only" onclick="searchFunction()">
+        <br>
+        <br>
         <table id="datasetTable">
             <tr>
                 <th>Dataset</th>

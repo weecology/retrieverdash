@@ -33,7 +33,7 @@ while decrement:
 
 
 # The DEV_LIST, useful for testing on less strong machines.
-DEV_LIST = ['iris', 'poker-hands', 'harvard-forest']
+DEV_LIST = ['iris', 'poker-hands', 'harvard-forest', 'titanic']
 
 
 def check_dataset(dataset):
