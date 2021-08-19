@@ -92,3 +92,8 @@ th {
   border-radius: 5px;
   text-align: center;
 }
+
+.fail-label {
+  color: 000;
+  font-size: 20px;
+}
