@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/weecology/retrieverdash.svg?branch=master)](https://travis-ci.org/weecology/retrieverdash)
+[![Django CI](https://github.com/weecology/retrieverdash/actions/workflows/django.yml/badge.svg)](https://github.com/weecology/retrieverdash/actions/workflows/django.yml)
 [![Documentation Status](https://readthedocs.org/projects/retrieverdash/badge/?version=latest)](https://retrieverdash.readthedocs.io/?badge=latest)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/weecology/retriever/main/LICENSE)
 <a href="https://numfocus.org/sponsored-projects">
