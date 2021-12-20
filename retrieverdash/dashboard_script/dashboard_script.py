@@ -9,6 +9,7 @@ from tempfile import mkdtemp
 from retriever import reload_scripts, dataset_names
 from retriever import download
 from retriever.lib.engine_tools import getmd5
+from retriever.lib.defaults import HOME_DIR
 
 import sys
 import csv
@@ -99,6 +100,8 @@ def check_dataset(dataset):
         json.dump(json_file_details, dataset_details_write,
                   sort_keys=True, indent=4)
         dataset_details_write.close()
+        if os.path.exists(os.path.join(HOME_DIR, 'raw_data', dataset.name)):
+            rmtree(os.path.join(HOME_DIR, 'raw_data', dataset.name))
 
 
 def run():
