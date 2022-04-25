@@ -35,6 +35,7 @@ while decrement:
 
 # The DEV_LIST, useful for testing on less strong machines.
 DEV_LIST = ['iris', 'poker-hands', 'harvard-forest', 'titanic']
+IGNORE = ['activity-timberharvest']
 
 
 def check_dataset(dataset):
@@ -108,11 +109,12 @@ def run():
     create_dirs()
     datasets_to_check = []
 
-    if(os.environ.get("RETR_TEST") == "true"):
-        datasets_to_check = [
-            script for script in reload_scripts() if script.name in DEV_LIST]
+    if os.environ.get("RETR_TEST") == "true":
+        datasets_to_check = [script for script in reload_scripts()
+                             if script.name in DEV_LIST]
     else:
-        datasets_to_check = reload_scripts()
+        datasets_to_check = [script for script in reload_scripts()
+                             if script.name not in IGNORE]
 
     for dataset in datasets_to_check:
         print("Checking dataset {}:".format(dataset.name))
