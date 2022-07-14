@@ -57,14 +57,16 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
         engine.to_csv(sort=False)
         engine.final_cleanup()
         os.remove(os.path.join(workdir, db_name))
-        current_md5 = getmd5(os.path.join(file_location, workdir),
+        current_md5 = getmd5(workdir,
                              data_type='dir',
                              encoding=dataset.encoding)
-        if not os.path.exists(os.path.join(file_location, 'current', dataset.name)):
-            os.makedirs(os.path.join(file_location, 'current', dataset.name))
+
+        f = os.path.join(file_location, 'current', dataset.name)
+        ds = os.path.join(file_location, 'current', dataset.name)
+        if not os.path.exists(f):
+            os.makedirs(ds)
         for file in os.listdir(workdir):
-            move(os.path.join(workdir, file),
-                 os.path.join(file_location,  'current', dataset.name))
+            move(os.path.join(workdir, file), ds)
     finally:
         if os.path.isfile(db_name):
             os.remove(db_name)
@@ -137,17 +139,19 @@ def diff_generator(dataset, location=file_location):
         file_name = '{}_{}'.format(dataset.name.replace('-', '_'), keys)
         csv_file_name = '{}.csv'.format(file_name)
         html_file_name = '{}.html'.format(file_name)
-        if create_diff(os.path.join(location, 'old', dataset.name, csv_file_name),
-                       os.path.join(location, 'current',
-                                    dataset.name, csv_file_name),
-                       os.path.join(location, 'diffs', html_file_name),
-                       context=True, numlines=1):
+        path_1 = os.path.join(location, 'old', dataset.name, csv_file_name)
+        path_2 = os.path.join(location, 'current', dataset.name, csv_file_name)
+        diff_path = os.path.join(location, 'diffs', html_file_name)
+
+        if create_diff(path_1, path_2, diff_path, context=True, numlines=1):
             tables[keys] = html_file_name
         try:
-            if not os.path.exists(os.path.join(location, 'old', dataset.name)):
-                os.makedirs(os.path.join(location, 'old', dataset.name))
-            move(os.path.join(location, 'current', dataset.name, csv_file_name),
-                 os.path.join(location, 'old', dataset.name, csv_file_name))
+            old_pat = os.path.join(location, 'old', dataset.name)
+            if not os.path.exists(old_pat):
+                os.makedirs(old_pat)
+            cur_d_path = os.path.join(location, 'current', dataset.name, csv_file_name)
+            old_d_path = os.path.join(location, 'old', dataset.name, csv_file_name)
+            move(cur_d_path, old_d_path)
         except IOError:
             pass
     return tables
@@ -243,8 +247,7 @@ def diff_generator_spatial(dataset, location=file_location):
         csv_file_name = '{}.csv'.format(file_name)
         html_file_name = '{}.html'.format(file_name)
         if create_diff(os.path.join(location, 'old', dataset.name, csv_file_name),
-                       os.path.join(location, 'current',
-                                    dataset.name, csv_file_name),
+                       os.path.join(location, 'current', dataset.name, csv_file_name),
                        os.path.join(location, 'diffs', html_file_name),
                        context=True, numlines=1):
             tables[keys] = html_file_name
