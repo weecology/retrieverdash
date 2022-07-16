@@ -129,7 +129,7 @@ def create_diff(csv1, csv2, diff_file, context, numlines):
             file3.writelines(diff_lines)
             return True
     except IOError:
-        print(IOError)
+        print(IOError, "Ddidid not write diff")
         return IOError
 
 
@@ -155,20 +155,23 @@ def diff_generator(dataset, location=file_location):
         csv_file_name = '{}.csv'.format(file_name)
         html_file_name = '{}.html'.format(file_name)
         old_pathsl = os.path.join(location, 'old', dataset.name, csv_file_name)
-        current_pathl = os.path.join(location, 'current', csv_file_name)
-        diff_pathl = os.path.join(location, 'diffs', html_file_name)
+        current_pathl = os.path.join(location, 'current', dataset.name,  csv_file_name)
+        diff_pathl = os.path.join(location, 'diffs',  html_file_name)
+
+        if not os.path.exists(os.path.dirname(diff_pathl)):
+            os.makedirs(os.path.dirname(diff_pathl))
 
         if create_diff(old_pathsl, current_pathl, diff_pathl, context=True, numlines=1):
             tables[keys] = html_file_name
-        try:
-            h = os.path.exists(os.path.join(location, 'old', dataset.name))
-            k = os.path.join(location, 'old', dataset.name)
-            if not h:
-                os.makedirs(k)
-            move(current_pathl, old_pathsl)
-        except IOError as e:
-            print(e)
-            pass
+        # try:
+        #     h = os.path.exists(os.path.join(location, 'old', dataset.name))
+        #     k = os.path.join(location, 'old', dataset.name)
+        #     if not h:
+        #         os.makedirs(k)
+        #     move(current_pathl, old_pathsl)
+        # except IOError as e:
+        #     print(e, "kkkkkllllllllllllllcccc")
+        #     pass
     return tables
 
 
@@ -268,14 +271,14 @@ def diff_generator_spatial(dataset, location=file_location):
 
         if create_diff(old_path, curr_path, diff_path, context=True, numlines=1):
             tables[keys] = html_file_name
-        try:
-            if not os.path.exists(os.path.join(location, 'old', dataset.name)):
-                os.makedirs(os.path.join(location, 'old', dataset.name))
-            move(curr_path,
-                 os.path.join(location, 'old', dataset.name, csv_file_name))
-        except IOError:
-            print(IOError)
-            exit()
+        # try:
+        #     if not os.path.exists(os.path.join(location, 'old', dataset.name)):
+        #         os.makedirs(os.path.join(location, 'old', dataset.name))
+        #     move(curr_path,
+        #          os.path.join(location, 'old', dataset.name, csv_file_name))
+        # except IOError:
+        #     print(IOError, "jjjjjjjjjjjjjjjjj")
+        #     exit()
 
     return tables
 
@@ -297,5 +300,6 @@ def data_shift(dataset, is_spatial=False):
                 os.makedirs(old_path)
             move(csv_path,
                  os.path.join(old_path, csv_file_name))
-        except IOError:
+        except IOError as e:
+            print(e, "vvvvvvvvvvvvv")
             pass

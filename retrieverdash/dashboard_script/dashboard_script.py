@@ -91,8 +91,12 @@ def check_dataset(dataset):
 
         else:
             md5 = get_dataset_md5(dataset)
+            old_md5 =dataset_detail['dataset_details'][dataset.name]['md5']
+            if md5 == old_md5:
+                print("wrong KKKKKKKKKKKK")
+                # exit()
 
-            if dataset.name not in dataset_detail['dataset_details'] or md5 != dataset_detail['dataset_details'][dataset.name]['md5']:
+            if dataset.name not in dataset_detail['dataset_details'] or md5 != old_md5:
                 diff = diff_generator(dataset)
             else:
                 for keys in dataset.tables:
