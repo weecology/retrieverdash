@@ -8,26 +8,32 @@ from retriever.lib.engine_tools import getmd5
 
 from retrieverdash.dashboard_script.status_dashboard_tools import create_dirs
 from retrieverdash.dashboard_script.status_dashboard_tools import diff_generator
+from retrieverdash.dashboard_script.status_dashboard_tools import join_path
+
 
 mysql_engine, postgres_engine, sqlite_engine, *_ = engine_list
 file_location = os.path.normpath(os.path.dirname(os.path.realpath(__file__)))
 precalculated_md5 = '9f6c106f696451732fb763b3632bfd48'
 modified_dataset_path = "dataset/modified/Portal_rodents_19772002.csv"
-test_files_location = os.path.normpath(os.path.join(file_location, 'test_dir'))
+test_files_location = join_path([file_location, 'test_dir'])
+sample_dataset_dir = join_path([file_location, 'test_dir', 'old', 'sample-dataset'])
 
 
 def get_script_module(script_name):
     """Load a script module."""
-    return read_json(os.path.join(file_location, script_name))
+    return read_json(join_path([file_location, script_name]))
 
 
 def test_status_dashboard():
-    if not os.path.exists(os.path.join(file_location, 'test_dir')):
-        os.makedirs(os.path.join(file_location, 'test_dir'))
-        create_dirs(os.path.join(test_files_location))
-        os.makedirs(os.path.join(file_location, 'test_dir', 'old', 'sample-dataset'))
-    os.chdir(os.path.join(test_files_location, 'old', 'sample-dataset'))
+    # make sure you are in the test dir to load sample script
+    os.chdir(file_location)
     script_module = get_script_module('sample_dataset')
+    if not os.path.exists(test_files_location):
+        os.makedirs(test_files_location)
+        create_dirs(test_files_location)
+        os.makedirs(sample_dataset_dir)
+
+    os.chdir(sample_dataset_dir)
     sqlite_engine.opts = {'install': 'sqlite', 'file': 'test_db.sqlite3', 'table_name': '{db}_{table}',
                           'data_dir': '.'}
     sqlite_engine.use_cache = False
@@ -37,6 +43,7 @@ def test_status_dashboard():
     os.remove('test_db.sqlite3')
 
     # Finding the md5 of the modified dataset
+    os.chdir(file_location)
     setattr(script_module.tables['main'], 'path', modified_dataset_path)
     workdir = mkdtemp(dir=test_files_location)
     os.chdir(workdir)
@@ -69,5 +76,5 @@ def test_status_dashboard():
                      'sample_dataset_main.csv')) else False
     os.chdir(file_location)
     rmtree(test_files_location)
-    assert diff_exist == True
-    assert csv_exist == True
+    assert diff_exist
+    assert csv_exist
