@@ -9,11 +9,16 @@ from retriever.engines import engine_list, postgres
 from retriever.lib.defaults import HOME_DIR
 from retriever.lib.engine_tools import getmd5
 
+
+def join_path(values):
+    """Join and normalize paths"""
+    values = [str(values[0]).strip()] + [str(v).strip("/") for v in values[1:]]
+    return os.path.normpath(os.path.join(*values))
+
+
 sqlite_engine = [eng for eng in engine_list if eng.name == 'SQLite'][0]
 file_location = os.path.normpath(os.path.dirname(os.path.realpath(__file__)))
-temp_file_location = os.path.normpath(
-    os.path.join(file_location, 'temp_files'))
-
+temp_file_location = join_path([file_location, 'temp_files'])
 example_datasets = ['bird-size', 'mammal-masses', 'airports', 'portal']
 
 
@@ -56,17 +61,28 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
         dataset.download(engine=engine, debug=debug)
         engine.to_csv(sort=False)
         engine.final_cleanup()
-        os.remove(os.path.join(workdir, db_name))
+        try:
+            os.remove(join_path([workdir, db_name]))
+        except OSError as error:
+            print("There was an error.")
         current_md5 = getmd5(workdir,
                              data_type='dir',
                              encoding=dataset.encoding)
 
-        f = os.path.join(file_location, 'current', dataset.name)
         ds = os.path.join(file_location, 'current', dataset.name)
-        if not os.path.exists(f):
-            os.makedirs(ds)
+        try:
+            if os.path.exists(ds):
+                rmtree(ds)
+        except OSError as error:
+            print(error)
+            exit()
+        os.makedirs(ds)
         for file in os.listdir(workdir):
-            move(os.path.join(workdir, file), ds)
+            try:
+                move(os.path.join(workdir, file), ds)
+            except OSError as error:
+                print(error)
+                exit()
     finally:
         if os.path.isfile(db_name):
             os.remove(db_name)
@@ -109,13 +125,12 @@ def create_diff(csv1, csv2, diff_file, context, numlines):
         with open(csv1, 'r', encoding="ISO-8859-1") as file1, \
                 open(csv2, 'r', encoding="ISO-8859-1") as file2, \
                 open(diff_file, 'w') as file3:
-            diff_lines = html_diff.make_file(file1, file2,
-                                             context=context,
-                                             numlines=numlines)
+            diff_lines = html_diff.make_file(file1, file2, context=context, numlines=numlines)
             file3.writelines(diff_lines)
             return True
     except IOError:
-        return False
+        print(IOError)
+        return IOError
 
 
 def create_dirs(location=file_location):
@@ -139,20 +154,20 @@ def diff_generator(dataset, location=file_location):
         file_name = '{}_{}'.format(dataset.name.replace('-', '_'), keys)
         csv_file_name = '{}.csv'.format(file_name)
         html_file_name = '{}.html'.format(file_name)
-        path_1 = os.path.join(location, 'old', dataset.name, csv_file_name)
-        path_2 = os.path.join(location, 'current', dataset.name, csv_file_name)
-        diff_path = os.path.join(location, 'diffs', html_file_name)
+        old_pathsl = os.path.join(location, 'old', dataset.name, csv_file_name)
+        current_pathl = os.path.join(location, 'current', csv_file_name)
+        diff_pathl = os.path.join(location, 'diffs', html_file_name)
 
-        if create_diff(path_1, path_2, diff_path, context=True, numlines=1):
+        if create_diff(old_pathsl, current_pathl, diff_pathl, context=True, numlines=1):
             tables[keys] = html_file_name
         try:
-            old_pat = os.path.join(location, 'old', dataset.name)
-            if not os.path.exists(old_pat):
-                os.makedirs(old_pat)
-            cur_d_path = os.path.join(location, 'current', dataset.name, csv_file_name)
-            old_d_path = os.path.join(location, 'old', dataset.name, csv_file_name)
-            move(cur_d_path, old_d_path)
-        except IOError:
+            h = os.path.exists(os.path.join(location, 'old', dataset.name))
+            k = os.path.join(location, 'old', dataset.name)
+            if not h:
+                os.makedirs(k)
+            move(current_pathl, old_pathsl)
+        except IOError as e:
+            print(e)
             pass
     return tables
 
@@ -246,18 +261,22 @@ def diff_generator_spatial(dataset, location=file_location):
         file_name = '{}.{}'.format(dataset.name.replace('-', '_'), keys)
         csv_file_name = '{}.csv'.format(file_name)
         html_file_name = '{}.html'.format(file_name)
-        if create_diff(os.path.join(location, 'old', dataset.name, csv_file_name),
-                       os.path.join(location, 'current', dataset.name, csv_file_name),
-                       os.path.join(location, 'diffs', html_file_name),
-                       context=True, numlines=1):
+
+        old_path = os.path.join(location, 'old', dataset.name, csv_file_name)
+        curr_path = os.path.join(location, 'current', dataset.name, csv_file_name)
+        diff_path = os.path.join(location, 'diffs', html_file_name)
+
+        if create_diff(old_path, curr_path, diff_path, context=True, numlines=1):
             tables[keys] = html_file_name
         try:
             if not os.path.exists(os.path.join(location, 'old', dataset.name)):
                 os.makedirs(os.path.join(location, 'old', dataset.name))
-            move(os.path.join(location, 'current', dataset.name, csv_file_name),
+            move(curr_path,
                  os.path.join(location, 'old', dataset.name, csv_file_name))
         except IOError:
-            pass
+            print(IOError)
+            exit()
+
     return tables
 
 
@@ -268,15 +287,15 @@ def data_shift(dataset, is_spatial=False):
     for keys in dataset.tables:
         file_name = '{}_{}'.format(
             dataset.name.replace('-', '_'), keys)
-
         if is_spatial:
             file_name = '{}.{}'.format(dataset.name.replace('-', '_'), keys)
         csv_file_name = '{}.csv'.format(file_name)
+        csv_path = os.path.join(file_location, 'current', dataset.name, csv_file_name)
+        old_path = os.path.join(file_location, 'old', dataset.name)
         try:
-            if not os.path.exists(os.path.join(file_location, 'old', dataset.name)):
-                os.makedirs(os.path.join(
-                    file_location, 'old', dataset.name))
-            move(os.path.join(file_location, 'current', dataset.name, csv_file_name),
-                 os.path.join(file_location, 'old', dataset.name, csv_file_name))
+            if not os.path.exists(old_path):
+                os.makedirs(old_path)
+            move(csv_path,
+                 os.path.join(old_path, csv_file_name))
         except IOError:
             pass
