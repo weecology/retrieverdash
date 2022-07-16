@@ -19,7 +19,7 @@
                 ],
                 "contains_pk":"True"
             },
-            "url":"https://github.com/weecology/retrieverdash/raw/master/retrieverdash/tests/data/dataset.zip",
+            "url":"https://github.com/weecology/retrieverdash/blob/main/retrieverdash/tests/data/dataset.zip?raw=true",
             "name":"main",
             "path": "dataset/original/Portal_rodents_19772002.csv",
             "schema":{

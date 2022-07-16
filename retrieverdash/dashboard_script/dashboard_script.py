@@ -13,17 +13,21 @@ from retriever.lib.defaults import HOME_DIR
 
 import sys
 import csv
-from .status_dashboard_tools import get_dataset_md5
-from .status_dashboard_tools import diff_generator, diff_generator_spatial, data_shift
-from .status_dashboard_tools import create_dirs
-from .status_dashboard_tools import dataset_type
-from .status_dashboard_tools import install_postgres
-
-# from retrieverdash.dashboard_script.status_dashboard_tools import get_dataset_md5
-# from retrieverdash.dashboard_script.status_dashboard_tools import diff_generator, diff_generator_spatial, data_shift
-# from retrieverdash.dashboard_script.status_dashboard_tools import create_dirs
-# from retrieverdash.dashboard_script.status_dashboard_tools import dataset_type
-# from retrieverdash.dashboard_script.status_dashboard_tools import install_postgres
+try:
+    from .status_dashboard_tools import get_dataset_md5
+    from .status_dashboard_tools import diff_generator, diff_generator_spatial, data_shift
+    from .status_dashboard_tools import create_dirs
+    from .status_dashboard_tools import dataset_type, join_path
+    from .status_dashboard_tools import install_postgres
+except ImportError as error:
+    try:
+        from retrieverdash.dashboard_script.status_dashboard_tools import get_dataset_md5
+        from retrieverdash.dashboard_script.status_dashboard_tools import diff_generator, diff_generator_spatial, data_shift
+        from retrieverdash.dashboard_script.status_dashboard_tools import create_dirs
+        from retrieverdash.dashboard_script.status_dashboard_tools import dataset_type,join_path
+        from retrieverdash.dashboard_script.status_dashboard_tools import install_postgres
+    except ImportError as error:
+        pass
 # To set location of the path
 file_location = os.path.normpath(os.path.dirname(os.path.realpath(__file__)))
 
@@ -39,7 +43,7 @@ while decrement:
 
 
 # The DEV_LIST, useful for testing on less strong machines.
-DEV_LIST = ['iris', 'poker-hands', ] #'harvard-forest', 'titanic']
+DEV_LIST = ['iris', 'abalone-age', ] #'harvard-forest', 'titanic']
 IGNORE = ['activity-timberharvest']
 
 
@@ -54,9 +58,10 @@ def check_dataset(dataset):
     reason = None
     diff = None
     dataset_detail = None
+    dataset_detail_json = join_path([file_location, "dataset_details.json"])
     try:
         try:
-            with open(DASH_DETAILS, 'r') as json_file:
+            with open(dataset_detail_json, 'r') as json_file:
                 dataset_detail = json.load(json_file)
         except (OSError, JSONDecodeError):
             dataset_detail = dict()
@@ -86,17 +91,20 @@ def check_dataset(dataset):
 
         else:
             md5 = get_dataset_md5(dataset)
+            old_md5 =dataset_detail['dataset_details'][dataset.name]['md5']
+            if md5 == old_md5:
+                print("wrong KKKKKKKKKKKK")
+                # exit()
 
-            if dataset.name not in dataset_detail['dataset_details'] or md5 != dataset_detail['dataset_details'][dataset.name]['md5']:
+            if dataset.name not in dataset_detail['dataset_details'] or md5 != old_md5:
                 diff = diff_generator(dataset)
             else:
                 for keys in dataset.tables:
                     file_name = '{}_{}'.format(
                         dataset.name.replace('-', '_'), keys)
                     html_file_name = '{}.html'.format(file_name)
-                    old_diff = os.path.exists(os.path.join(file_location, 'diffs', html_file_name))
-                    if os.path.exists(old_diff):
-                        remove(old_diff)
+                    if os.path.exists(join_path([file_location, 'diffs', html_file_name])):
+                        remove(join_path([file_location, 'diffs', html_file_name]))
             data_shift(dataset)
         status = True
     except Exception as e:
@@ -111,23 +119,12 @@ def check_dataset(dataset):
             "diff": diff}
         json_file_details["last_checked_on"] = datetime.now(
             timezone.utc).strftime("%d %b %Y")
-        dataset_details_write = open(os.path.join(
-            file_location, 'dataset_details.json'), 'w')
+        dataset_details_write = open(join_path([file_location, 'dataset_details.json']), 'w')
         json.dump(json_file_details, dataset_details_write,
                   sort_keys=True, indent=4)
         dataset_details_write.close()
-        if os.path.exists(os.path.join(HOME_DIR, 'raw_data', dataset.name)):
-            rmtree(os.path.join(HOME_DIR, 'raw_data', dataset.name))
-
-
-
-
-
-
-
-
-
-
+        if os.path.exists(join_path([HOME_DIR, 'raw_data', dataset.name])):
+            rmtree(join_path([HOME_DIR, 'raw_data', dataset.name]))
 
 
 def run():
