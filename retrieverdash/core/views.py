@@ -6,10 +6,8 @@ from django.views.generic import TemplateView
 import os
 import json
 
-file_path = os.path.join(settings.PROJECT_ROOT,
-                         'dashboard_script/dataset_details.json')
-diff_path = os.path.join(settings.PROJECT_ROOT,
-                         'dashboard_script/diffs/')
+file_path = os.path.join(settings.PROJECT_ROOT, 'dashboard_script/dataset_details.json')
+diff_path = os.path.join(settings.PROJECT_ROOT, 'dashboard_script/diffs/')
 
 
 class DashboardView(TemplateView):
@@ -20,8 +18,7 @@ class DashboardView(TemplateView):
         try:
             json_detail = json.load(open(file_path, 'r'))
         except IOError:
-            json_detail = dict(
-                {'dataset_details': None, 'last_checked_on': None})
+            json_detail = dict({'dataset_details': None, 'last_checked_on': None})
         context.update({
             'datasets': json_detail['dataset_details'],
             'last_checked_on': json_detail['last_checked_on']
@@ -30,6 +27,7 @@ class DashboardView(TemplateView):
 
 
 class DiffView(View):
+
     def get(self, request, filename):
         return HttpResponse(open(os.path.join(diff_path, filename)))
 
@@ -41,11 +39,9 @@ class DataSetView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         try:
-            json_detail = json.load(open(file_path, 'r'))[
-                'dataset_details'][dataset_name]
+            json_detail = json.load(open(file_path, 'r'))['dataset_details'][dataset_name]
         except IOError:
-            json_detail = dict(
-                {"diff": None})
+            json_detail = dict({"diff": None})
         context.update({
             'dataset': str(dataset_name).strip(),
             'dataset_details': json_detail
