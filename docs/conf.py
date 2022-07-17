@@ -15,7 +15,8 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.realpath(__file__), os.pardir, os.pardir)))
+sys.path.insert(
+    0, os.path.abspath(os.path.join(os.path.realpath(__file__), os.pardir, os.pardir)))
 
 # -- Project information -----------------------------------------------------
 
@@ -94,7 +95,6 @@ html_theme = 'agogo'
 #
 # html_sidebars = {}
 
-
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
@@ -132,10 +132,8 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'dataretrieverdashboard', 'Data Retriever Dashboard Documentation',
-     [author], 1)
-]
+man_pages = [(master_doc, 'dataretrieverdashboard',
+              'Data Retriever Dashboard Documentation', [author], 1)]
 
 # -- Options for Texinfo output ----------------------------------------------
 
@@ -147,6 +145,5 @@ texinfo_documents = [
      author, 'DataRetrieverDashboard', 'One line description of project.',
      'Miscellaneous'),
 ]
-
 
 # -- Extension configuration -------------------------------------------------

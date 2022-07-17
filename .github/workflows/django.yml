@@ -30,3 +30,5 @@ jobs:
         python setup.py install
         retriever ls
         python retrieverdash/manage.py test core.tests -v 2
+        yapf -d --recursive ./retrieverdash/ --style=.style.yapf 2>&1
+

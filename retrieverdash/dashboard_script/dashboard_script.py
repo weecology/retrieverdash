@@ -42,7 +42,6 @@ while decrement:
     except OverflowError:
         maxInt = int(maxInt / 10)
 
-
 # The DEV_LIST, useful for testing on less strong machines.
 DEV_LIST = ['iris', 'poker-hands', 'harvard-forest', 'titanic']
 IGNORE = ['activity-timberharvest']
@@ -62,7 +61,8 @@ def check_dataset(dataset):
 
     try:
         dataset_detail = load_dataset_details()
-        previous_detail_records = "dataset_details" in dataset_detail and dataset_detail["dataset_details"]
+        previous_detail_records = "dataset_details" in dataset_detail and dataset_detail[
+            "dataset_details"]
         dataset_has_record = dataset.name in dataset_detail['dataset_details']
         if previous_detail_records and dataset_has_record:
             previous_md5 = dataset_detail['dataset_details'][dataset.name]['md5']
