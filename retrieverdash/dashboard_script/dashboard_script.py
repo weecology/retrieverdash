@@ -110,7 +110,7 @@ def remove_old_diff(dataset):
     for keys in dataset.tables:
         file_name = '{}.{}'.format(dataset.name.replace('-', '_'), keys)
         html_file_name = '{}.html'.format(file_name)
-        old_diff = os.path.exists(os.path.join(file_location, 'diffs', html_file_name))
+        old_diff = os.path.join(file_location, 'diffs', html_file_name)
         if os.path.exists(old_diff):
             remove(old_diff)
 
