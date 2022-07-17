@@ -43,7 +43,10 @@ while decrement:
         maxInt = int(maxInt / 10)
 
 # The DEV_LIST, useful for testing on less strong machines.
-DEV_LIST = ['iris', 'abalone-age', ]  # 'harvard-forest', 'titanic']
+DEV_LIST = [
+    'iris',
+    'abalone-age',
+]  # 'harvard-forest', 'titanic']
 IGNORE = ['activity-timberharvest']
 
 DATASET_DETAIL_JSON = os.path.join(file_location, "dataset_details.json")
@@ -92,8 +95,10 @@ def check_dataset(dataset):
             "md5": md5,
             "status": status,
             "reason": reason,
-            "diff": diff}
-        json_file_details["last_checked_on"] = datetime.now(timezone.utc).strftime("%d %b %Y")
+            "diff": diff
+        }
+        json_file_details["last_checked_on"] = datetime.now(
+            timezone.utc).strftime("%d %b %Y")
         dataset_details_write = open(DATASET_DETAIL_JSON, 'w')
         json.dump(json_file_details, dataset_details_write, sort_keys=True, indent=4)
         dataset_details_write.close()
@@ -126,11 +131,13 @@ def run():
     datasets_to_check = []
     # if os.environ.get("RETR_TEST") == "true":
     if 1:
-        datasets_to_check = [script for script in reload_scripts()
-                             if script.name in DEV_LIST]
+        datasets_to_check = [
+            script for script in reload_scripts() if script.name in DEV_LIST
+        ]
     else:
-        datasets_to_check = [script for script in reload_scripts()
-                             if script.name not in IGNORE]
+        datasets_to_check = [
+            script for script in reload_scripts() if script.name not in IGNORE
+        ]
 
     for dataset in datasets_to_check:
         print("Checking dataset {}:".format(dataset.name))

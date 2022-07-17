@@ -10,7 +10,6 @@ from retrieverdash.dashboard_script.status_dashboard_tools import create_dirs
 from retrieverdash.dashboard_script.status_dashboard_tools import diff_generator
 from retrieverdash.dashboard_script.status_dashboard_tools import join_path
 
-
 mysql_engine, postgres_engine, sqlite_engine, *_ = engine_list
 file_location = os.path.normpath(os.path.dirname(os.path.realpath(__file__)))
 precalculated_md5 = '9f6c106f696451732fb763b3632bfd48'
@@ -34,8 +33,12 @@ def test_status_dashboard():
         os.makedirs(sample_dataset_dir)
 
     os.chdir(sample_dataset_dir)
-    sqlite_engine.opts = {'install': 'sqlite', 'file': 'test_db.sqlite3', 'table_name': '{db}_{table}',
-                          'data_dir': '.'}
+    sqlite_engine.opts = {
+        'install': 'sqlite',
+        'file': 'test_db.sqlite3',
+        'table_name': '{db}_{table}',
+        'data_dir': '.'
+    }
     sqlite_engine.use_cache = False
     script_module.download(engine=sqlite_engine)
     script_module.engine.final_cleanup()
@@ -59,8 +62,12 @@ def test_status_dashboard():
     # md5 we have to find the diff
     if calculated_md5 != precalculated_md5:
         os.chdir(os.path.join(test_files_location, 'current'))
-        sqlite_engine.opts = {'install': 'sqlite', 'file': 'test_db_new.sqlite3', 'table_name': '{db}_{table}',
-                              'data_dir': '.'}
+        sqlite_engine.opts = {
+            'install': 'sqlite',
+            'file': 'test_db_new.sqlite3',
+            'table_name': '{db}_{table}',
+            'data_dir': '.'
+        }
         sqlite_engine.use_cache = False
         script_module.download(sqlite_engine)
         script_module.engine.final_cleanup()
@@ -69,8 +76,7 @@ def test_status_dashboard():
         diff_generator(script_module, location=test_files_location)
 
     diff_exist = True if os.path.isfile(
-        os.path.join(test_files_location, 'diffs',
-                     'sample_dataset_main.html')) else False
+        os.path.join(test_files_location, 'diffs', 'sample_dataset_main.html')) else False
     csv_exist = True if os.path.isfile(
         os.path.join(test_files_location, 'old', 'sample-dataset',
                      'sample_dataset_main.csv')) else False

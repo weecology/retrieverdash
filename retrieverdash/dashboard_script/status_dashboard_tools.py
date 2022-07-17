@@ -51,9 +51,7 @@ def get_dataset_md5(dataset, use_cache=False, debug=True, location=temp_file_loc
             os.remove(join_path([workdir, db_name]))
         except OSError as error:
             print("There was an error.", error)
-        current_md5 = getmd5(workdir,
-                             data_type='dir',
-                             encoding=dataset.encoding)
+        current_md5 = getmd5(workdir, data_type='dir', encoding=dataset.encoding)
 
         ds = os.path.join(file_location, 'current', dataset.name)
         try:
@@ -104,7 +102,10 @@ def create_diff(csv1, csv2, diff_output_file, context, numlines):
         with open(csv1, 'r', encoding="ISO-8859-1") as file1, \
                 open(csv2, 'r', encoding="ISO-8859-1") as file2, \
                 open(diff_output_file, 'w') as file3:
-            diff_lines = html_diff.make_file(file1, file2, context=context, numlines=numlines)
+            diff_lines = html_diff.make_file(file1,
+                                             file2,
+                                             context=context,
+                                             numlines=numlines)
             file3.writelines(diff_lines)
             return True
     except IOError as e:
@@ -191,8 +192,8 @@ def diff_generator(dataset, location=file_location):
         csv_file_name = '{}.csv'.format(file_name)
         html_file_name = '{}.html'.format(file_name)
         old_path = os.path.join(location, 'old', dataset.name, csv_file_name)
-        current_path = os.path.join(location, 'current', dataset.name,  csv_file_name)
-        diff_path = os.path.join(location, 'diffs',  html_file_name)
+        current_path = os.path.join(location, 'current', dataset.name, csv_file_name)
+        diff_path = os.path.join(location, 'diffs', html_file_name)
         if not os.path.exists(os.path.dirname(diff_path)):
             os.makedirs(os.path.dirname(diff_path))
         if create_diff(old_path, current_path, diff_path, context=True, numlines=1):
@@ -207,8 +208,7 @@ def diff_generator_spatial(dataset, location=file_location):
 def data_shift(dataset, is_spatial=False):
     """Shift data from the current directory to the old directory"""
     for keys in dataset.tables:
-        file_name = '{}_{}'.format(
-            dataset.name.replace('-', '_'), keys)
+        file_name = '{}_{}'.format(dataset.name.replace('-', '_'), keys)
         if is_spatial:
             file_name = '{}.{}'.format(dataset.name.replace('-', '_'), keys)
         csv_file_name = '{}.csv'.format(file_name)
@@ -217,7 +217,6 @@ def data_shift(dataset, is_spatial=False):
         try:
             if not os.path.exists(old_path):
                 os.makedirs(old_path)
-            move(csv_path,
-                 os.path.join(old_path, csv_file_name))
+            move(csv_path, os.path.join(old_path, csv_file_name))
         except IOError as e:
             print(e)

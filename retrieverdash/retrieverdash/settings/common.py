@@ -2,7 +2,6 @@
 from os.path import abspath, basename, dirname, join, normpath
 import sys
 
-
 # ##### PATH CONFIGURATION ################################
 
 # fetch Django's project directory
@@ -34,19 +33,13 @@ PROJECT_TEMPLATES = [
 # add apps/ to the Python path
 sys.path.append(normpath(join(PROJECT_ROOT, 'apps')))
 
-
 # ##### APPLICATION CONFIGURATION #########################
 
 # these are the apps
 DEFAULT_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django_crontab',
-    'core'
+    'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes',
+    'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles',
+    'django_crontab', 'core'
 ]
 
 # Middlewares
@@ -81,7 +74,6 @@ TEMPLATES = [
     },
 ]
 
-
 # ##### SECURITY CONFIGURATION ############################
 
 # We store the secret key here
@@ -89,11 +81,8 @@ TEMPLATES = [
 SECRET_FILE = normpath(join(PROJECT_ROOT, 'run', 'SECRET.key'))
 
 # these persons receive error notification
-ADMINS = (
-    ('your name', 'your_name@example.com'),
-)
+ADMINS = (('your name', 'your_name@example.com'),)
 MANAGERS = ADMINS
-
 
 # ##### DJANGO RUNNING CONFIGURATION ######################
 
@@ -109,10 +98,8 @@ STATIC_URL = '/static/'
 # the URL for media files
 MEDIA_URL = '/media/'
 
-
 # ##### DEBUG CONFIGURATION ###############################
 DEBUG = False
-
 
 # ##### INTERNATIONALIZATION ##############################
 
@@ -127,7 +114,6 @@ USE_L10N = True
 
 # enable timezone awareness by default
 USE_TZ = True
-
 
 # finally grab the SECRET KEY
 try:
