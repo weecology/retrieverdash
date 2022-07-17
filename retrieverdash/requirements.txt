@@ -29,5 +29,6 @@ sqlparse
 toml
 tqdm
 urllib3
+yapf
 xlrd
 zipp

@@ -35,6 +35,7 @@ dependencies:
   - urllib3==1.25.10
   - xlrd==1.2.0
   - zipp==3.3.1
+  - yapf
   - pip:
       - git+https://www.github.com/weecology/retriever@main
       - django-crontab==0.7.1
