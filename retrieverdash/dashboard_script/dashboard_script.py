@@ -44,7 +44,7 @@ while decrement:
 
 # The DEV_LIST, useful for testing on less strong machines.
 DEV_LIST = ['iris', 'poker-hands', 'harvard-forest', 'titanic']
-IGNORE = ['activity-timberharvest']
+IGNORE = ['activity-timberharvest', 'covid-case-surveillance']
 
 DATASET_DETAIL_JSON = os.path.join(file_location, "dataset_details.json")
 CURRENT_PATH = os.path.join(file_location, 'current')
