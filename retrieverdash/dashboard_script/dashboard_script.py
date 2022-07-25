@@ -44,7 +44,27 @@ while decrement:
 
 # The DEV_LIST, useful for testing on less strong machines.
 DEV_LIST = ['iris', 'poker-hands', 'harvard-forest', 'titanic']
-IGNORE = ['activity-timberharvest', 'covid-case-surveillance']
+IGNORE = [
+    'activity-timberharvest',
+    'covid-case-surveillance',
+    'aquatic-animal-excretion',
+    'lakecats-final-tables',
+    # Amazon
+    'baltimore-restaurants',
+    'fernow-soil-productivity',
+    'nlcd-imperviousness-conus',
+    'white-clay-creek-avondale-soil',
+    'white-clay-creek-boulton-chemistry',
+    'white-clay-creek-chlorophyll',
+    'white-clay-creek-christina-chemistry',
+    'white-clay-creek-christina-sediment',
+    'white-clay-creek-christina-temperatures',
+    'white-clay-creek-streamflow',
+    'white-clay-creek-swrc-meteorology',
+    'white-clay-creek-waterlevels',
+    'white-clay-dissolved-carbon',
+    'white-clay-dissolved-carbon'
+]
 
 DATASET_DETAIL_JSON = os.path.join(file_location, "dataset_details.json")
 CURRENT_PATH = os.path.join(file_location, 'current')
