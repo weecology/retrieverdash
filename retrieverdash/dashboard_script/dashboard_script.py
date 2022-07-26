@@ -63,7 +63,8 @@ IGNORE = [
     'white-clay-creek-swrc-meteorology',
     'white-clay-creek-waterlevels',
     'white-clay-dissolved-carbon',
-    'white-clay-dissolved-carbon'
+    'white-clay-dissolved-carbon',
+    'usda-agriculture-plants-database'
 ]
 
 DATASET_DETAIL_JSON = os.path.join(file_location, "dataset_details.json")
