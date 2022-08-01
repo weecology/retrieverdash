@@ -64,7 +64,13 @@ IGNORE = [
     'white-clay-creek-waterlevels',
     'white-clay-dissolved-carbon',
     'white-clay-dissolved-carbon',
-    'usda-agriculture-plants-database'
+    'usda-agriculture-plants-database',
+    'vertnet',
+    'vertnet-amphibian',
+    'vertnet-bird',
+    'vertnet-fishe',
+    'vertnet-mammal',
+    'vertnet-reptiles'
 ]
 
 DATASET_DETAIL_JSON = os.path.join(file_location, "dataset_details.json")
@@ -142,6 +148,11 @@ def load_dataset_details():
     except (OSError, JSONDecodeError):
         dataset_detail = dict()
         dataset_detail['dataset_details'] = {}
+
+    for dataset_ignore in IGNORE:
+        if dataset_detail['dataset_details'] and dataset_ignore in dataset_detail[
+                'dataset_details']:
+            dataset_detail['dataset_details'].pop(dataset_ignore)
     return dataset_detail
 
 
